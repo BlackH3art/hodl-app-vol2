@@ -12,6 +12,7 @@ const App = () => {
     <>
       <div className={classes.wholeAppContainer}>
         <MainNav />
+        
         <BalanceInfo />
 
       </div>
