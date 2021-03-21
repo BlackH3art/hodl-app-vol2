@@ -1,13 +1,14 @@
-import { FETCH_PORTFOLIO, ADD_COIN } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION } from '../redux.actionTypes/actionTypes';
 
 export default function coinReducer(state = [], action) {
   switch (action.type) {
 
     case FETCH_PORTFOLIO: 
-      return state;
+      return action.payload;
 
-    case ADD_COIN:
-      return state;
+    case ADD_TRANSACTION:
+
+      return [...state, action.payload]
 
     default: 
       return state;
