@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TextField, Button, Typography, Paper } from '@material-ui/core'
+import { TextField, Button, Grid, Typography, Container } from '@material-ui/core';
+import { ButtonWrapper } from '../styledComponents/styledComponents';
 
 import { addTransaction } from '../../redux.actions/coinActions';
 import useStyles from './addCoinForm.styles';
@@ -31,24 +32,41 @@ const AddTransactionForm = () => {
       ticker: '',
       quantity: '',
       entryPrice: '',
-    })
+    });
   }
 
   return ( 
     <>
-      <Paper>
-        <form autoComplete="off" noValidate onSubmit={handleSubmit}>
+      <Container component="div">
+        <form className={classes.transactionForm} autoComplete="off" noValidate onSubmit={handleSubmit}>
+          
           <Typography variant="h6">
-            Add coin
+            Add transaction
           </Typography>
 
-          <TextField name="ticker" variant="outlined" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
-          <TextField name="quantity" variant="outlined" label="Quantity" fullWidth value={coinData.quantity} onChange={handleChange} />
-          <TextField name="entryPrice" variant="outlined" label="Entry price" fullWidth value={coinData.entryPrice} onChange={handleChange} />
-          <Button variant="contained" color="primary" size="large" type="submit"> Add </Button>
-          <Button variant="contained" color="secondary" size="small" onClick={clear}> Clear </Button>
+          <Grid container justify="space-around">
+
+            <Grid item lg={3} sm={10}>
+              <TextField name="ticker" variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
+            </Grid>
+
+            <Grid item lg={3} sm={10}>
+              <TextField name="quantity" variant="standard" label="Quantity" fullWidth value={coinData.quantity} onChange={handleChange} />
+            </Grid>
+
+            <Grid item lg={3} sm={10}>
+              <TextField name="entryPrice" variant="standard" label="Entry price" fullWidth value={coinData.entryPrice} onChange={handleChange} />
+            </Grid>
+
+          </Grid>
+
+          <ButtonWrapper>
+            <Button variant="contained" className={classes.primaryButton} size="large" type="submit"> Add </Button>
+            <Button variant="outlined" className={classes.secondaryButton} size="large" onClick={clear}> Clear </Button>
+          </ButtonWrapper>
+
         </form>
-      </Paper>
+      </Container>
     </>
    );
 }
