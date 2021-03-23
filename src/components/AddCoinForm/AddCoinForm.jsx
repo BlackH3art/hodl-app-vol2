@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TextField, Button, Grid, Typography, Container } from '@material-ui/core';
+import { TextField, Button, Grid, Typography, Container, MenuItem, FormControl } from '@material-ui/core';
 import { ButtonWrapper } from '../styledComponents/styledComponents';
 
 import { addTransaction } from '../../redux.actions/coinActions';
@@ -11,8 +11,9 @@ const AddTransactionForm = () => {
   const classes = useStyles(); 
   const [coinData, setCoinData] = useState({
     ticker: '',
+    type: '',
     quantity: '',
-    entryPrice: '',
+    price: '',
   });
   const dispatch = useDispatch();
 
@@ -30,15 +31,16 @@ const AddTransactionForm = () => {
   const clear = () => {
     setCoinData({
       ticker: '',
+      type: '',
       quantity: '',
-      entryPrice: '',
+      price: '',
     });
   }
 
   return ( 
     <>
       <Container component="div">
-        <form className={classes.transactionForm} autoComplete="off" noValidate onSubmit={handleSubmit}>
+        <FormControl fullWidth className={classes.transactionForm} autoComplete="off" noValidate onSubmit={handleSubmit}>
           
           <Typography variant="h6">
             Add transaction
@@ -46,16 +48,23 @@ const AddTransactionForm = () => {
 
           <Grid container justify="space-around">
 
-            <Grid item lg={3} sm={10}>
+            <Grid item lg={2} sm={10}>
               <TextField name="ticker" variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
             </Grid>
 
-            <Grid item lg={3} sm={10}>
+            <Grid item lg={2} sm={10}>
+              <TextField SelectProps={{ autoWidth: true }} select name="type" variant="standard" label="buy / sell" fullWidth value={coinData.type}   onChange={handleChange}>
+                <MenuItem value="buy">buy</MenuItem>
+                <MenuItem value="sell">sell</MenuItem>
+              </TextField>
+            </Grid>
+
+            <Grid item lg={2} sm={10}>
               <TextField name="quantity" variant="standard" label="Quantity" fullWidth value={coinData.quantity} onChange={handleChange} />
             </Grid>
 
-            <Grid item lg={3} sm={10}>
-              <TextField name="entryPrice" variant="standard" label="Entry price" fullWidth value={coinData.entryPrice} onChange={handleChange} />
+            <Grid item lg={2} sm={10}>
+              <TextField name="price" variant="standard" label="Price" fullWidth value={coinData.price} onChange={handleChange} />
             </Grid>
 
           </Grid>
@@ -65,7 +74,7 @@ const AddTransactionForm = () => {
             <Button variant="outlined" className={classes.secondaryButton} size="large" onClick={clear}> Clear </Button>
           </ButtonWrapper>
 
-        </form>
+        </FormControl>
       </Container>
     </>
    );

@@ -14,6 +14,12 @@ const BalanceInfo = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const userinfo = {
+    baseCapital: 10000,
+    totalGain: 1.5,
+    dayChange: -0.27
+  }
+
   useEffect(() => {
     dispatch(getCoins());
   },[dispatch]);
@@ -24,6 +30,10 @@ const BalanceInfo = () => {
         <Typography variant="h4">
           Balance info
         </Typography>
+
+        
+        
+
         <CoinList /> 
       </Container>
     </>
