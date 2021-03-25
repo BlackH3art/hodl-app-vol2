@@ -8,4 +8,5 @@ export const ButtonWrapper = styled.div`
 export const InfoSquaresWrapper = styled.div`
   display: flex;
   justify-content: space-around;
+  height: 120px;
 `;

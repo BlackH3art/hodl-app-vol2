@@ -4,9 +4,9 @@ export const setProfitLossPercentageSign = (value) => {
   const numberValue = parseInt(stringValue, 10);
 
   if (numberValue > 0) {
-    return `+${numberValue}`;
+    return `+${numberValue}%`;
   } else {
-    return `${numberValue}`;
+    return `${numberValue}%`;
   }
 }
 

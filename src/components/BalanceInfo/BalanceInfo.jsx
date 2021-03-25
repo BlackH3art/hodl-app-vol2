@@ -3,6 +3,7 @@ import { Container, Typography } from '@material-ui/core';
 
 import { getCoins } from '../../redux.actions/coinActions';
 import { setProfitLossPercentageSign, usdFormatter } from '../../helpers/helpers';
+import { userinfo } from '../../helpers/pseudoData';
 
 import useStyles from './balanceInfo.styles';
 import { useDispatch } from 'react-redux';
@@ -18,11 +19,7 @@ const BalanceInfo = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const userinfo = {
-    baseCapital: 10000,
-    totalGain: 1.5471,
-    dayChange: -0.2723
-  }
+  
 
   // Balance info calculations
   const currentBalance = (userinfo.baseCapital * userinfo.totalGain).toFixed(2);
@@ -46,10 +43,13 @@ const BalanceInfo = () => {
         <InfoSquaresWrapper>
           <InfoSquare title="Base capital:" info={`${usdFormatter.format(userinfo.baseCapital)}`} />
           <InfoSquare title="Gain / loss balance:" info={`${usdFormatter.format(gainBalance)}`} />
-          <InfoSquare title="Current balance:" info={`${usdFormatter.format(currentBalance)}`} percent={`${setProfitLossPercentageSign(gainPercent)}%`} />
-          <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossPercentageSign(dayChangePercent)}%`} />
+          <InfoSquare title="Current balance:" info={`${usdFormatter.format(currentBalance)}`} percent={`${setProfitLossPercentageSign(gainPercent)}`} />
+          <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossPercentageSign(dayChangePercent)}`} />
         </InfoSquaresWrapper>
 
+        <Typography variant="h5" className={classes.title}>
+          Portfolio
+        </Typography>
         <CoinList /> 
       </Container>
     </>
