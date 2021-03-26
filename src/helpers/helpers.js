@@ -1,13 +1,22 @@
-export const setProfitLossPercentageSign = (value) => {
+export const setProfitLossSign = (value, percentValue) => {
 
   const stringValue = value.toString(); 
-  const numberValue = parseInt(stringValue, 10);
+  const numberValue = Number(stringValue);
 
-  if (numberValue > 0) {
-    return `+${numberValue}%`;
+  if(percentValue) {
+    if (numberValue > 0) {
+      return `+${numberValue}%`;
+    } else {
+      return `${numberValue}%`;
+    }
   } else {
-    return `${numberValue}%`;
+    if (numberValue > 0) {
+      return `+${usdFormatter.format(numberValue)}`;
+    } else {
+      return `${usdFormatter.format(numberValue)}`;
+    }
   }
+
 }
 
 export const usdFormatter = new Intl.NumberFormat('en-US', {
