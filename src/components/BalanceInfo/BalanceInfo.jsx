@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography } from '@material-ui/core';
 
 import { getCoins } from '../../redux.actions/coinActions';
@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 
 import CoinList from './CoinList/CoinList';
 import InfoSquare from './InfoSquare/InfoSquare';
+import OpenPositions from './OpenPositions/OpenPositions';
 import { InfoSquaresWrapper } from '../styledComponents/styledComponents';
 
 
@@ -18,6 +19,7 @@ const BalanceInfo = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [showOpenPositions, setShowOpenPositions] = useState(true)
 
   // Balance info calculations
   const currentBalance = (userinfo.baseCapital * userinfo.totalGain).toFixed(2);
@@ -46,9 +48,12 @@ const BalanceInfo = () => {
         </InfoSquaresWrapper>
 
         <Typography variant="h5" className={classes.title}>
-          Portfolio
+          {showOpenPositions ? 'Open positions' : 'Portfolio'}
         </Typography>
-        <CoinList /> 
+
+        {showOpenPositions ? <OpenPositions /> : <CoinList />  }
+        
+
       </Container>
     </>
    );

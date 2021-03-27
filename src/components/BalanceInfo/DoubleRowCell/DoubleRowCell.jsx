@@ -1,18 +1,18 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-import useStyles from './doubleRowCell.styles';
+import { DoubleRowCellContainer } from '../../styledComponents/styledComponents';
 
-const DoubleRowCell = ({ firstRow, secondRow, secondRowClassName }) => {
 
-  const classes = useStyles();
+const DoubleRowCell = ({ firstRow, secondRow, secondRowClassName, firstRowClassName }) => {
+
 
   return ( 
     <>
-      <div className={classes.cellContainer}>
-        <Typography>{firstRow}</Typography>
+      <DoubleRowCellContainer>
+        <Typography className={firstRowClassName}>{firstRow}</Typography>
         <Typography className={secondRowClassName}>{secondRow}</Typography>
-      </div>
+      </DoubleRowCellContainer>
     </>
    );
 }

@@ -1,0 +1,23 @@
+.input {
+  display: block;
+  box-sizing: content-box;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #7A7774;
+  line-height: 1.5rem;
+  transition: 0.1s linear;
+  margin-bottom: 2px;
+  padding-left: 3px;
+}
+
+.input:focus {
+  border: none;
+  border-bottom: 1px solid rgba(17,153,142,1);
+
+}
+
+.input:hover {
+  border: none;
+  border-bottom: solid #353535;
+  border-width: 1px;
+}

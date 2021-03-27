@@ -10,3 +10,9 @@ export const InfoSquaresWrapper = styled.div`
   justify-content: space-around;
   height: 120px;
 `;
+
+export const DoubleRowCellContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
