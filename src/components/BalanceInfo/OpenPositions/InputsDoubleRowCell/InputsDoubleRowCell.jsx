@@ -18,8 +18,8 @@ const InputsDoubleRowCell = ({ ticker }) => {
           <form className={classes.form}>
 
             <div className={classes.labelInputContainer}>
-              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>amount</Typography></label> <input type="text" placeholder={ticker} className={'input '} />
-              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>price</Typography></label> <input type="text" placeholder={'$'} className={'input '} />
+              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>amount</Typography></label> <input type="number" placeholder={ticker} className={'input '} />
+              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>price</Typography></label> <input type="number" placeholder={'$'} className={'input '} />
             </div>
 
             <div className={classes.sellButtonContainer}>

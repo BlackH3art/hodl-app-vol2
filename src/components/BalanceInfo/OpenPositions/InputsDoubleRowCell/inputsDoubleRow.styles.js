@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles(() => ({
   form: {
     display: "grid",
-    gridTemplateColumns: "70% 30%",
+    gridTemplateColumns: "60% 40%",
     
   }, 
   secondaryTxt: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   },
   labelInputContainer: {
     display: "grid",
-    gridTemplateColumns: "70% 30%",
+    gridTemplateColumns: "50% 50%",
   },
   sellButtonContainer: {
     display: "flex",

@@ -1,13 +1,22 @@
 import React from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
+// helpers
 import { transactionList } from '../../../helpers/pseudoData';
 import { setProfitLossSign, usdFormatter  } from '../../../helpers/helpers';
 
+// components
 import DoubleRowCell from '../DoubleRowCell/DoubleRowCell';
 import PreTxtDoubleRowCell from './PreTxtDoubleRowCell/PreTxtDoubleRowCell';
 import InputsDoubleRowCell from './InputsDoubleRowCell/InputsDoubleRowCell';
 
+// icons
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import HistoryOutlinedIcon from '@material-ui/icons/HistoryOutlined';
+import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
+
+
+// hooks
 import useStyles from './openPositions.styles';
 
 const OpenPositions = () => {
@@ -25,7 +34,10 @@ const OpenPositions = () => {
     
     return (
       <TableRow key={index} >
-        <TableCell align="left">{++index}</TableCell>
+        <TableCell align="left" className={classes.dateCellContainer}>
+          <Typography className={classes.transactionDate}>{transaction.date.toLocaleDateString()}</Typography>
+          {++index}
+        </TableCell>
         <TableCell align="left"className={classes.secondaryTxt} >{transaction.ticker}</TableCell>
 
         <TableCell align="right">
@@ -61,7 +73,19 @@ const OpenPositions = () => {
             ticker={transaction.ticker}
           />
         </TableCell>
-        <TableCell align="right">actions</TableCell>
+        <TableCell align="right"  >
+          <div className={classes.actionButtonContainer}>
+            <button className={classes.actionButtons}>
+              <EditOutlinedIcon />
+            </button>
+            <button className={classes.actionButtons}>
+              <HistoryOutlinedIcon />
+            </button>
+            <button className={classes.actionButtons}>
+              <DeleteOutlineOutlinedIcon className={`MuiRating-iconHover`} />
+            </button>
+          </div>
+        </TableCell>
       </TableRow>
     )});
 

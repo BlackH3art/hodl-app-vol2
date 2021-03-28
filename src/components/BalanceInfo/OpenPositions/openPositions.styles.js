@@ -26,7 +26,30 @@ const useStyles = makeStyles(() => ({
   },
   dateTableRow: {
     width: "100%"
-  }
+  }, 
+  dateCellContainer: {
+    position: "relative",
+  }, 
+  transactionDate: {
+    display: "block",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    fontSize: "0.675rem",
+    color: "#7A7774",
+    marginLeft: "20px"
+  },
+  actionButtonContainer: {
+    display: "flex", 
+    height: "100%"
+  }, 
+  actionButtons: {
+    backgroundColor: "white",
+    border: "none",
+    margin: "0 2px",
+    cursor: "pointer"
+  }, 
+
 }));
 
 export default useStyles;
