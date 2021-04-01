@@ -15,7 +15,7 @@ import { InfoSquaresWrapper } from '../styledComponents/styledComponents';
 
 
 
-const BalanceInfo = () => {
+const BalanceInfo = ({ setCurrentId }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const BalanceInfo = () => {
           {showOpenPositions ? 'Open positions' : 'Portfolio'}
         </Typography>
 
-        {showOpenPositions ? <OpenPositions /> : <CoinList />  }
+        {showOpenPositions ? <OpenPositions setCurrentId={setCurrentId} /> : <CoinList />  }
         
 
       </Container>

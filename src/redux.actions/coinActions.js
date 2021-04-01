@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_PORTFOLIO, ADD_TRANSACTION } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION } from '../redux.actionTypes/actionTypes';
 
 export const getCoins = () => async (dispatch) => {
   try {
@@ -25,6 +25,19 @@ export const addTransaction = (transaction) => async (dispatch) => {
     })
   } catch (error) {
     console.log(error.message)
+  }
+}
+
+export const editTransaction = (id, transaction) => async (dispatch) => {
+  try {
+    const { data } = await api.editTransaction(id, transaction);
+
+    dispatch({
+      type: EDIT_TRANSACTION,
+      payload: data
+    })
+  } catch (error) {
+    console.log(error.message);
   }
 }
 

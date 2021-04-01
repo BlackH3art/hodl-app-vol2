@@ -15,16 +15,18 @@ import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import HistoryOutlinedIcon from '@material-ui/icons/HistoryOutlined';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 
-
 // hooks
 import useStyles from './openPositions.styles';
+import { useSelector } from 'react-redux';
 
-const OpenPositions = () => {
+const OpenPositions = ({ setCurrentId }) => {
 
   const classes = useStyles();
 
+  const transactions = useSelector((state) => state.coinReducer);
 
-  const openPositions = transactionList.map((transaction, index) => {
+
+  const openPositions = transactions.map((transaction, index) => {
 
     let currentDolarBalance = transaction.quantity * transaction.price;
     let investedDolarAmount = transaction.quantity * transaction.entryPrice;
@@ -35,7 +37,7 @@ const OpenPositions = () => {
     return (
       <TableRow key={index} >
         <TableCell align="left" className={classes.dateCellContainer}>
-          <Typography className={classes.transactionDate}>{transaction.date.toLocaleDateString()}</Typography>
+          <Typography className={classes.transactionDate}>{transaction.date}</Typography>
           {++index}
         </TableCell>
         <TableCell align="left"className={classes.secondaryTxt} >{transaction.ticker}</TableCell>
@@ -53,7 +55,7 @@ const OpenPositions = () => {
         <TableCell align="right" >
           <DoubleRowCell 
             firstRow={usdFormatter.format(currentDolarBalance)} 
-            secondRow={`${(transaction.quantity).toFixed(6)} ${transaction.ticker}`}
+            secondRow={`${(transaction.quantity)?.toFixed(6)} ${transaction.ticker}`}
             secondRowClassName={classes.cryptoAmount}
           />
         </TableCell>
@@ -75,7 +77,7 @@ const OpenPositions = () => {
         </TableCell>
         <TableCell align="right"  >
           <div className={classes.actionButtonContainer}>
-            <button className={classes.actionButtons}>
+            <button className={classes.actionButtons} onClick={() => setCurrentId(transaction._id)}>
               <EditOutlinedIcon />
             </button>
             <button className={classes.actionButtons}>
