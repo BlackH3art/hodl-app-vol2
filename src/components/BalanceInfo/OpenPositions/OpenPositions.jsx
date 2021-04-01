@@ -5,6 +5,9 @@ import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody
 import { transactionList } from '../../../helpers/pseudoData';
 import { setProfitLossSign, usdFormatter  } from '../../../helpers/helpers';
 
+//actions
+import { deleteTransaction } from '../../../redux.actions/coinActions';
+
 // components
 import DoubleRowCell from '../DoubleRowCell/DoubleRowCell';
 import PreTxtDoubleRowCell from './PreTxtDoubleRowCell/PreTxtDoubleRowCell';
@@ -17,12 +20,12 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 
 // hooks
 import useStyles from './openPositions.styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const OpenPositions = ({ setCurrentId }) => {
 
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const transactions = useSelector((state) => state.coinReducer);
 
 
@@ -83,8 +86,8 @@ const OpenPositions = ({ setCurrentId }) => {
             <button className={classes.actionButtons}>
               <HistoryOutlinedIcon />
             </button>
-            <button className={classes.actionButtons}>
-              <DeleteOutlineOutlinedIcon className={`MuiRating-iconHover`} />
+            <button className={classes.actionButtons} onClick={() => dispatch(deleteTransaction(transaction._id))}>
+              <DeleteOutlineOutlinedIcon />
             </button>
           </div>
         </TableCell>
