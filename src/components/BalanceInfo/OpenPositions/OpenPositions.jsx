@@ -75,6 +75,7 @@ const OpenPositions = ({ setCurrentId }) => {
         <TableCell align="left" className={setProfitLossSign(percentGainLoss).startsWith('-') ? classes.loss : classes.gain}><Typography> {setProfitLossSign(percentGainLoss, true)} </Typography></TableCell>
         <TableCell align="right">
           <InputsDoubleRowCell 
+            id={transaction._id}
             ticker={transaction.ticker}
           />
         </TableCell>

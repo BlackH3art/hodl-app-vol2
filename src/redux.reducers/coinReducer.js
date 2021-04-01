@@ -1,4 +1,4 @@
-import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION } from '../redux.actionTypes/actionTypes';
 
 export default function coinReducer(state = [], action) {
   switch (action.type) {
@@ -14,6 +14,9 @@ export default function coinReducer(state = [], action) {
 
     case DELETE_TRANSACTION:
       return state.filter((transaction) => transaction._id !== action.payload);
+
+    case SELL_TRANSACTION:
+      return state.map((transaction) => transaction._id === action.payload._id ? action.payload : transaction);
 
     default: 
       return state;

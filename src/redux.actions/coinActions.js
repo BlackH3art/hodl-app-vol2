@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION } from '../redux.actionTypes/actionTypes';
 
 export const getCoins = () => async (dispatch) => {
   try {
@@ -50,6 +50,21 @@ export const deleteTransaction = (id) => async (dispatch) => {
       type: DELETE_TRANSACTION,
       payload: id
     });
+    
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export const sellTransaction = (id, sellingData) => async (dispatch) => {
+
+  try {
+    const { data } = await api.sellTransaction(id, sellingData);
+
+    dispatch({
+      type: SELL_TRANSACTION,
+      payload: data
+    })
     
   } catch (error) {
     console.log(error.message);
