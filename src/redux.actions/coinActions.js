@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA } from '../redux.actionTypes/actionTypes';
 
 export const getCoins = () => async (dispatch) => {
   try {
@@ -68,6 +68,22 @@ export const sellTransaction = (id, sellingData) => async (dispatch) => {
     
   } catch (error) {
     console.log(error.message);
+  }
+}
+
+export const fetchCoinDataFromCMC = (ticker) => async (dispatch) => {
+
+
+  try {
+    const { data } = await api.fetchCoinData(ticker); 
+
+    dispatch({
+      type: FETCH_COIN_DATA,
+      payload: data
+    })
+    
+  } catch (error) {
+    console.log(error);
   }
 }
 
