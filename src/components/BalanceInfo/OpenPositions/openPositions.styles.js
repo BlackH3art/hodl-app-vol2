@@ -37,7 +37,8 @@ const useStyles = makeStyles(() => ({
     left: 0,
     fontSize: "0.675rem",
     color: "#7A7774",
-    marginLeft: "20px"
+    marginLeft: "20px",
+    width: '100px'
   },
   actionButtonContainer: {
     display: "flex", 
@@ -49,6 +50,16 @@ const useStyles = makeStyles(() => ({
     margin: "0 2px",
     cursor: "pointer"
   }, 
+  tickerLogoContainer: {
+    display: "flex",
+  },
+  logo: {
+    height: "20px",
+    paddingRight: "10px"
+  }, 
+  tickerBox: {
+    height: "100%",
+  }
 
 }));
 

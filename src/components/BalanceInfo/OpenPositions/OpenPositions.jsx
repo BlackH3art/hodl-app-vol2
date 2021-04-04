@@ -23,7 +23,7 @@ const OpenPositions = ({ setCurrentId }) => {
           <TableHead>
             <TableRow>
               <TableCell align="left"><Typography className={classes.tableHead}> # </Typography></TableCell>
-              <TableCell align="left"><Typography className={classes.tableHead}> Ticker</Typography></TableCell>
+              <TableCell align="left" width="10%"><Typography className={classes.tableHead}> Ticker</Typography></TableCell>
               <TableCell align="center"><Typography className={classes.tableHead}> Price </Typography></TableCell>
               <TableCell align="right" width="12%"><Typography className={classes.tableHead}> Capital</Typography></TableCell>
               <TableCell align="center"><Typography className={classes.tableHead}> Profit / loss</Typography></TableCell>

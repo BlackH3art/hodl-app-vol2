@@ -5,6 +5,7 @@ import { Typography, TableRow, TableCell, TableBody } from '@material-ui/core';
 import DoubleRowCell from '../../DoubleRowCell/DoubleRowCell';
 import PreTxtDoubleRowCell from '../PreTxtDoubleRowCell/PreTxtDoubleRowCell';
 import InputsDoubleRowCell from '../InputsDoubleRowCell/InputsDoubleRowCell';
+import TickerLogo from './TickerLogo';
 
 // helpers
 import { setProfitLossSign, usdFormatter  } from '../../../../helpers/helpers';
@@ -25,7 +26,7 @@ import { deleteTransaction, fetchCoinDataFromCMC } from '../../../../redux.actio
 
 
 const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, date, id, ticker }) => {
-
+  
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -35,6 +36,10 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
 
   const coinsDetails = useSelector((state) => state.coinDetailsReducer);
   const coinDetails = coinsDetails.filter((coin) => coin.symbol === ticker);
+
+
+  const d = new Date(date)
+  const formatedDate = `${d.toLocaleDateString()} - ${d.getHours()}:${d.getMinutes()}`;
 
 
   let currentDolarBalance = quantity * price;
@@ -47,11 +52,11 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
       <TableBody>
         <TableRow >
           <TableCell align="left" className={classes.dateCellContainer}>
-            <Typography className={classes.transactionDate}>{date}</Typography>
+            <Typography className={classes.transactionDate}>{formatedDate}</Typography>
             {++index}
           </TableCell>
-          <TableCell align="left"className={classes.secondaryTxt} > 
-            <img src={coinDetails[0]?.logo} alt={ticker} height="20px" /> {ticker}
+          <TableCell align="left" className={classes.secondaryTxt} > 
+            <TickerLogo logo={coinDetails[0]?.logo} ticker={ticker} />
           </TableCell>
 
           <TableCell align="right">
