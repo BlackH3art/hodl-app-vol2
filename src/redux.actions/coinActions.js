@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA, FETCH_COIN_PRICES } from '../redux.actionTypes/actionTypes';
 
 export const getCoins = () => async (dispatch) => {
   try {
@@ -8,12 +8,12 @@ export const getCoins = () => async (dispatch) => {
     dispatch({
       type: FETCH_PORTFOLIO,
       payload: data
-    })
+    });
 
   } catch (error) {
     console.log(error.message);
-  }
-}
+  };
+};
 
 export const addTransaction = (transaction) => async (dispatch) => {
   try {
@@ -22,11 +22,11 @@ export const addTransaction = (transaction) => async (dispatch) => {
     dispatch({
       type: ADD_TRANSACTION,
       payload: data
-    })
+    });
   } catch (error) {
     console.log(error.message)
-  }
-}
+  };
+};
 
 export const editTransaction = (id, transaction) => async (dispatch) => {
   try {
@@ -35,11 +35,11 @@ export const editTransaction = (id, transaction) => async (dispatch) => {
     dispatch({
       type: EDIT_TRANSACTION,
       payload: data
-    })
+    });
   } catch (error) {
     console.log(error.message);
-  }
-}
+  };
+};
 
 export const deleteTransaction = (id) => async (dispatch) => {
 
@@ -53,8 +53,8 @@ export const deleteTransaction = (id) => async (dispatch) => {
     
   } catch (error) {
     console.log(error.message);
-  }
-}
+  };
+};
 
 export const sellTransaction = (id, sellingData) => async (dispatch) => {
 
@@ -64,15 +64,14 @@ export const sellTransaction = (id, sellingData) => async (dispatch) => {
     dispatch({
       type: SELL_TRANSACTION,
       payload: data
-    })
+    });
     
   } catch (error) {
     console.log(error.message);
-  }
-}
+  };
+};
 
 export const fetchCoinDataFromCMC = (ticker) => async (dispatch) => {
-
 
   try {
     const { data } = await api.fetchCoinData(ticker); 
@@ -80,10 +79,25 @@ export const fetchCoinDataFromCMC = (ticker) => async (dispatch) => {
     dispatch({
       type: FETCH_COIN_DATA,
       payload: data
-    })
+    });
     
   } catch (error) {
     console.log(error);
-  }
-}
+  };
+};
+
+export const fetchPricesCoinData = (ticker) => async (dispatch) => {
+  
+  try {
+    const { data } = await api.fetchCoinPrice(ticker);
+
+    dispatch({
+      type: FETCH_COIN_PRICES,
+      payload: data
+    });
+
+  } catch (error) {
+    console.log(error.message);
+  };
+};
 

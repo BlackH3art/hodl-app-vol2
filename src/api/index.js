@@ -10,3 +10,4 @@ export const sellTransaction = (id, sellingTransaction) => axios.patch(`${url}/s
 
 
 export const fetchCoinData = (ticker) => axios.get(`http://localhost:5000/cmcdata/${ticker}`);
+export const fetchCoinPrice = (ticker) => axios.get(`http://localhost:5000/cmcdata/prices/${ticker}`);
