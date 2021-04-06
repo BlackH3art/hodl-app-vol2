@@ -11,7 +11,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
   const classes = useStyles(); 
   const [coinData, setCoinData] = useState({
     ticker: '',
-    type: '',
+    type: 'buy',
     quantity: '',
     entryPrice: '',
   }); 
@@ -39,7 +39,6 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
       }));
     }
 
-
     clear();
   }
 
@@ -50,7 +49,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
   const clear = () => {
     setCoinData({
       ticker: '',
-      type: '',
+      type: 'buy',
       quantity: '',
       entryPrice: '',
     });
@@ -63,7 +62,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
         <FormControl fullWidth className={classes.transactionForm} autoComplete="off" noValidate>
           
           <Typography variant="h6">
-            {currentId ? 'Edit' : 'Add'} transaction
+            {currentId ? 'Edit' : 'Buy'} transaction
           </Typography>
 
           <Grid container justify="space-around">
@@ -90,7 +89,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
           </Grid>
 
           <ButtonWrapper>
-            <Button variant="contained" className={classes.primaryButton} size="large" type="submit" onClick={handleSubmit}> {currentId ? 'Edit' : 'Add'}  </Button>
+            <Button variant="contained" className={classes.primaryButton} size="large" type="submit" onClick={handleSubmit}> {currentId ? 'Edit' : 'Buy'}  </Button>
             <Button variant="outlined" className={classes.secondaryButton} size="large" onClick={clear}> Clear </Button>
           </ButtonWrapper>
 

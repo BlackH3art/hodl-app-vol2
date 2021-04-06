@@ -14,6 +14,10 @@ const useStyles = makeStyles(() => ({
     fontWeight: 400,
     padding: "30px 0 15px",
     fontSize: "1.8em",
+  },
+  routeButton: {
+    marginLeft: "30px",
+    padding: "0 15px"
   }
 }));
 

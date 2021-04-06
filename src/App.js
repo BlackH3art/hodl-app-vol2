@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import useStyles from './app.styles';
 import MainNav from './components/MainNav/MainNav';
@@ -12,13 +13,15 @@ const App = () => {
 
   return ( 
     <>
-      <div className={classes.wholeAppContainer}>
-        <MainNav />
-        
-        <AddCoinForm currentId={currentId} setCurrentId={setCurrentId} />
-        <BalanceInfo setCurrentId={setCurrentId} />
+      <Router>
+        <div className={classes.wholeAppContainer}>
+          <MainNav />
+          
+          <AddCoinForm currentId={currentId} setCurrentId={setCurrentId} />
+          <BalanceInfo setCurrentId={setCurrentId} />
 
-      </div>
+        </div>
+      </Router>
     </>
    );
 }

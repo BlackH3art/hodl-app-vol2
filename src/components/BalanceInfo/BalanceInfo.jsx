@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { Container, Typography, Button } from '@material-ui/core';
+import { Switch, Route, Link } from 'react-router-dom';
 
 import { getCoins } from '../../redux.actions/coinActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
@@ -19,7 +20,7 @@ const BalanceInfo = ({ setCurrentId }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const [showOpenPositions, setShowOpenPositions] = useState(true)
+  const [showOpenPositions, setShowOpenPositions] = useState(false)
 
   // Balance info calculations
   const currentBalance = (userinfo.baseCapital * userinfo.totalGain).toFixed(2);
@@ -48,12 +49,33 @@ const BalanceInfo = ({ setCurrentId }) => {
         </InfoSquaresWrapper>
 
         <Typography variant="h5" className={classes.title}>
-          {showOpenPositions ? 'Open positions' : 'Portfolio'}
+          {!showOpenPositions ? 'Open positions' : 'Portfolio'}
+          {showOpenPositions ? (
+            <Link to='/open-positions'>
+              <Button className={classes.routeButton} onClick={() => setShowOpenPositions(false)}>
+                [ Open positions ]
+              </Button>
+            </Link>
+          ) : (
+            <Link to='/portfolio-balance'>
+              <Button className={classes.routeButton} onClick={() => setShowOpenPositions(true)}>
+                [ Portfolio ]
+              </Button>
+            </Link>
+          )}
         </Typography>
 
-        {showOpenPositions ? <OpenPositions setCurrentId={setCurrentId} /> : <CoinList />  }
         
+        <Switch>
+          <Route path="/open-positions">
+            <OpenPositions setCurrentId={setCurrentId} />
+          </Route>
 
+          <Route path="/portfolio-balance">
+            <CoinList />
+          </Route>
+        </Switch>
+        
       </Container>
     </>
    );
