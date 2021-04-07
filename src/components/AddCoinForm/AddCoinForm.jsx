@@ -35,7 +35,6 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
       dispatch(addTransaction({
         ...coinData,
         date: new Date(),
-        dayChange: 5.32
       }));
     }
 

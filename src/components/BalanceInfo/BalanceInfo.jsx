@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import CoinList from './CoinList/CoinList';
 import InfoSquare from './InfoSquare/InfoSquare';
 import OpenPositions from './OpenPositions/OpenPositions';
+import HistoryTransaction from './HistoryTransaction/HistoryTransaction';
 import { InfoSquaresWrapper } from '../styledComponents/styledComponents';
 
 
@@ -63,6 +64,12 @@ const BalanceInfo = ({ setCurrentId }) => {
               </Button>
             </Link>
           )}
+
+          <Link to='/transaction-history' className={classes.historyButton}>
+            <Button className={`${classes.routeButton}`} >
+              History
+            </Button>
+          </Link>
         </Typography>
 
         
@@ -73,6 +80,10 @@ const BalanceInfo = ({ setCurrentId }) => {
 
           <Route path="/portfolio-balance">
             <CoinList />
+          </Route>
+
+          <Route path="/transaction-history">
+            <HistoryTransaction />
           </Route>
         </Switch>
         

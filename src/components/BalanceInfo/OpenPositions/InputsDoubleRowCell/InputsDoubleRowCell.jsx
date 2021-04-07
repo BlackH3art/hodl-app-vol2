@@ -14,8 +14,11 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
 
   const classes = useStyles();
   const [sellingData, setSellingData] = useState({
-    sellingAmount: '',
-    sellingPrice: ''
+    ticker: ticker,
+    type: 'sell',
+    quantity: '',
+    sellingPrice: '',
+    date: new Date()
   });
   const dispatch = useDispatch();
 
@@ -38,8 +41,9 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
 
   const clear = () => {
     setSellingData({
-      sellingAmount: '',
-      sellingPrice: ''
+      quantity: '',
+      sellingPrice: '',
+      type: 'sell',
     })
   }
 
@@ -51,7 +55,7 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
           <form className={classes.form}>
 
             <div className={classes.labelInputContainer}>
-              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>amount</Typography></label> <input type="number" value={sellingData.sellingAmount} name="sellingAmount" onChange={handleChange} placeholder={ticker} className={'input '} />
+              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>amount</Typography></label> <input type="number" value={sellingData.quantity} name="quantity" onChange={handleChange} placeholder={ticker} className={'input '} />
               <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>price</Typography></label> <input type="number" value={sellingData.sellingPrice} name="sellingPrice" onChange={handleChange} placeholder={'$'} className={'input '} />
             </div>
 
