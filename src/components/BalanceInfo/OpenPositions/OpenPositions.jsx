@@ -54,7 +54,7 @@ const OpenPositions = ({ setCurrentId }) => {
                 quantity={transaction.quantity}
                 price={coinPrice?.price}
                 entryPrice={transaction.entryPrice}
-                date={transaction.date}
+                date={transaction.openDate}
                 ticker={transaction.ticker.toUpperCase()}
                 id={transaction._id}
               />

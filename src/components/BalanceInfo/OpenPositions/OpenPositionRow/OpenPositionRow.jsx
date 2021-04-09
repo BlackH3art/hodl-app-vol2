@@ -9,6 +9,7 @@ import TickerLogo from './TickerLogo';
 
 // helpers
 import { setProfitLossSign, usdFormatter  } from '../../../../helpers/helpers';
+import { timeFormatter } from '../../../../helpers/helpers';
 
 // hooks
 import useStyles from '../openPositions.styles';
@@ -21,7 +22,6 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 
 //actions
 import { deleteTransaction, fetchCoinDataFromCMC } from '../../../../redux.actions/coinActions';
-
 
 
 
@@ -39,8 +39,7 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
 
 
   const d = new Date(date)
-  const formatedDate = `${d.toLocaleDateString()} - ${d.getHours()}:${d.getMinutes()}`;
-
+  const formatedDate = `${d.toLocaleDateString()} - ${timeFormatter(d.getHours())}:${timeFormatter(d.getMinutes())}`;
 
   let currentDolarBalance = quantity * price;
   let investedDolarAmount = quantity * entryPrice;

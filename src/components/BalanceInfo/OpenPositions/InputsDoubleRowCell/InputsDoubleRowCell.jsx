@@ -31,8 +31,6 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
   
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    console.log('submit sell transaction');
-
     
     dispatch(sellTransaction(id, { ...sellingData, closeDate: new Date() }));
 

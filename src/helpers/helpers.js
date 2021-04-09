@@ -22,4 +22,16 @@ export const setProfitLossSign = (value, percentValue) => {
 export const usdFormatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD'
-})
+});
+
+export const timeFormatter = (time) => {
+
+  let myTime = String(time)
+  
+  if(myTime.length === 1) {
+    return `0${myTime}`
+  } else {
+    return time
+  }
+
+}
