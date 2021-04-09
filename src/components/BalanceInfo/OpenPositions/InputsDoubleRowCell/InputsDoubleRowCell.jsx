@@ -16,9 +16,8 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
   const [sellingData, setSellingData] = useState({
     ticker: ticker,
     type: 'sell',
-    quantity: '',
+    sellingQuantity: '',
     sellingPrice: '',
-    date: new Date()
   });
   const dispatch = useDispatch();
 
@@ -34,14 +33,15 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
     e.preventDefault(); 
     console.log('submit sell transaction');
 
-    dispatch(sellTransaction(id, sellingData));
+    
+    dispatch(sellTransaction(id, { ...sellingData, closeDate: new Date() }));
 
     clear();
   }
 
   const clear = () => {
     setSellingData({
-      quantity: '',
+      sellingQuantity: '',
       sellingPrice: '',
       type: 'sell',
     })
@@ -55,7 +55,7 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
           <form className={classes.form}>
 
             <div className={classes.labelInputContainer}>
-              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>amount</Typography></label> <input type="number" value={sellingData.quantity} name="quantity" onChange={handleChange} placeholder={ticker} className={'input '} />
+              <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>amount</Typography></label> <input type="number" value={sellingData.sellingQuantity} name="sellingQuantity" onChange={handleChange} placeholder={ticker} className={'input '} />
               <label className={classes.labelClass}><Typography className={classes.secondaryTxt}>price</Typography></label> <input type="number" value={sellingData.sellingPrice} name="sellingPrice" onChange={handleChange} placeholder={'$'} className={'input '} />
             </div>
 

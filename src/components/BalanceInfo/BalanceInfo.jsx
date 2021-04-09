@@ -8,6 +8,7 @@ import { userinfo } from '../../helpers/pseudoData';
 
 import useStyles from './balanceInfo.styles';
 import { useDispatch } from 'react-redux';
+import { useLocation, useHistory } from 'react-router-dom';
 
 import CoinList from './CoinList/CoinList';
 import InfoSquare from './InfoSquare/InfoSquare';
@@ -21,6 +22,8 @@ const BalanceInfo = ({ setCurrentId }) => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
   const [showOpenPositions, setShowOpenPositions] = useState(false)
 
   // Balance info calculations
@@ -30,10 +33,16 @@ const BalanceInfo = ({ setCurrentId }) => {
   const dayChangeBalance = ((userinfo.baseCapital * userinfo.totalGain) * userinfo.dayChange).toFixed(2);
   const dayChangePercent = (userinfo.dayChange * 100).toFixed(2);
   // ----------------------
-
+  
   useEffect(() => {
     dispatch(getCoins());
   },[dispatch]);
+
+  const goBack = () => {
+    if(location.pathname === "/transaction-history") {
+      history.goBack()
+    }
+  }
 
   return ( 
     <>
@@ -49,28 +58,33 @@ const BalanceInfo = ({ setCurrentId }) => {
           <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} />
         </InfoSquaresWrapper>
 
-        <Typography variant="h5" className={classes.title}>
-          {!showOpenPositions ? 'Open positions' : 'Portfolio'}
-          {showOpenPositions ? (
-            <Link to='/open-positions'>
-              <Button className={classes.routeButton} onClick={() => setShowOpenPositions(false)}>
-                [ Open positions ]
-              </Button>
-            </Link>
-          ) : (
-            <Link to='/portfolio-balance'>
-              <Button className={classes.routeButton} onClick={() => setShowOpenPositions(true)}>
-                [ Portfolio ]
-              </Button>
-            </Link>
-          )}
+          <Typography variant="h5" className={classes.title}>
+            {!showOpenPositions ? 'Open positions' : 'Portfolio'}
+          <div className={classes.componentsNavigations}>
+            {showOpenPositions ? (
+              <Link to='/open-positions'>
+                <Button className={classes.routeButton} onClick={() => setShowOpenPositions(false)}>
+                  [ Open positions ]
+                </Button>
+              </Link>
+            ) : (
+              <Link to='/portfolio-balance'>
+                <Button className={classes.routeButton} onClick={() => setShowOpenPositions(true)}>
+                  [ Portfolio ]
+                </Button>
+              </Link>
+            )}      
 
-          <Link to='/transaction-history' className={classes.historyButton}>
-            <Button className={`${classes.routeButton}`} >
-              History
-            </Button>
-          </Link>
-        </Typography>
+            <Link to='/transaction-history'>
+              <Button className={`${classes.routeButton} ${classes.historyButton}`} onClick={goBack} >
+                {location.pathname === "/transaction-history" ? "Go back" : "History"}
+              </Button>
+            </Link>
+          </div>
+
+          </Typography>
+
+
 
         
         <Switch>

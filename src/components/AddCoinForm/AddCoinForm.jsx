@@ -34,7 +34,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
     } else {
       dispatch(addTransaction({
         ...coinData,
-        date: new Date(),
+        openDate: new Date(),
       }));
     }
 

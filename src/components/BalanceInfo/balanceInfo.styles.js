@@ -19,8 +19,13 @@ const useStyles = makeStyles(() => ({
     marginLeft: "30px",
     padding: "0 15px"
   },
+  componentsNavigations: {
+    display: "flex",
+    justifyContent: "space-between",
+    flexGrow: 1
+  }, 
   historyButton: {
-    alignSelf: "flex-end"
+    marginRight: "30px"
   }
 }));
 
