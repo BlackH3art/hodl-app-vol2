@@ -101,3 +101,5 @@ export const fetchPricesCoinData = (ticker) => async (dispatch) => {
   };
 };
 
+// utworzyć akcję 
+
