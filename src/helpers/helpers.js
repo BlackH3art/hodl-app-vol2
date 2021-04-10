@@ -16,7 +16,6 @@ export const setProfitLossSign = (value, percentValue) => {
       return `${usdFormatter.format(numberValue)}`;
     }
   }
-
 }
 
 export const usdFormatter = new Intl.NumberFormat('en-US', {
@@ -32,6 +31,17 @@ export const timeFormatter = (time) => {
     return `0${myTime}`
   } else {
     return time
+  }
+}
+
+export const dateFormatter = (date) => {
+
+  if(date) {
+    const myDate = new Date(date);
+    const formattedDate = `${myDate.toLocaleDateString()} - ${timeFormatter(myDate.getHours())}:${timeFormatter(myDate.getMinutes())}`;
+    return formattedDate;
+  } else {
+    return "-";
   }
 
 }

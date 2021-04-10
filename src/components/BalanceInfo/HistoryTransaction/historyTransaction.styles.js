@@ -9,6 +9,19 @@ const useStyles = makeStyles(() => ({
     fontWeight: 600,
     color: "rgba(17,153,142,1)",
   }, 
+  secondaryTxt: {
+    fontSize: "0.875rem",
+    color: "#7A7774",
+    paddingRight: "10px"
+  },
+  cryptoAmount: {
+    fontSize: "0.875rem",
+    color: "#7A7774",
+  },
+  date: {
+    fontSize: "0.875rem",
+    color: "black",
+  }
 }));
 
 export default useStyles;

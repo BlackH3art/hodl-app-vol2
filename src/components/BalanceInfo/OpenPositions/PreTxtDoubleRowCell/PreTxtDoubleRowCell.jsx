@@ -10,16 +10,16 @@ const PreTxtDoubleRowCell = ({ firstRow, secondRow, secondRowClassName, firstRow
     <>
       <DoubleRowCellContainer>
         <Grid container>
-          <Grid item lg={5}>
+          <Grid item lg={3}>
             <Typography className={preClassName}>{firstPre}</Typography>
           </Grid>
-          <Grid item lg={5}>
+          <Grid item lg={7}>
             <Typography align="right" className={firstRowClassName}>{firstRow}</Typography>
           </Grid>
-          <Grid item lg={5}>
+          <Grid item lg={3}>
             <Typography className={preClassName}>{secondPre}</Typography>
           </Grid>
-          <Grid item lg={5}>
+          <Grid item lg={7}>
             <Typography align="right" className={secondRowClassName}>{secondRow}</Typography>
           </Grid>
         </Grid>

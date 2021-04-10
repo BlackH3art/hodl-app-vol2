@@ -8,8 +8,7 @@ import InputsDoubleRowCell from '../InputsDoubleRowCell/InputsDoubleRowCell';
 import TickerLogo from './TickerLogo';
 
 // helpers
-import { setProfitLossSign, usdFormatter  } from '../../../../helpers/helpers';
-import { timeFormatter } from '../../../../helpers/helpers';
+import { setProfitLossSign, usdFormatter, timeFormatter } from '../../../../helpers/helpers';
 
 // hooks
 import useStyles from '../openPositions.styles';
@@ -65,7 +64,6 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
               secondPre={'entry:'}
               secondRow={usdFormatter.format(entryPrice)}
               preClassName={classes.secondaryTxt}
-
             />
           </TableCell>
           <TableCell align="right" >
