@@ -8,7 +8,7 @@ import InputsDoubleRowCell from '../InputsDoubleRowCell/InputsDoubleRowCell';
 import TickerLogo from './TickerLogo';
 
 // helpers
-import { setProfitLossSign, usdFormatter, timeFormatter } from '../../../../helpers/helpers';
+import { setProfitLossSign, usdFormatter, timeFormatter, cryptoAmountFormatter } from '../../../../helpers/helpers';
 
 // hooks
 import useStyles from '../openPositions.styles';
@@ -69,7 +69,7 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
           <TableCell align="right" >
             <DoubleRowCell 
               firstRow={usdFormatter.format(currentDolarBalance)} 
-              secondRow={`${(quantity)?.toFixed(6)} ${ticker}`}
+              secondRow={`${cryptoAmountFormatter((quantity)?.toFixed(6))} ${ticker}`}
               secondRowClassName={classes.cryptoAmount}
             />
           </TableCell>

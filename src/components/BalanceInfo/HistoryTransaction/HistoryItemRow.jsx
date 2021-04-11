@@ -8,7 +8,7 @@ import PreTxtDoubleRow from '../OpenPositions/PreTxtDoubleRowCell/PreTxtDoubleRo
 
 import useStyles from './historyTransaction.styles';
 
-import { dateFormatter, usdFormatter } from '../../../helpers/helpers';
+import { dateFormatter, usdFormatter, cryptoAmountFormatter } from '../../../helpers/helpers';
 
 const HistoryItemRow = ({ index, ticker, type, entryPrice, sellingPrice, quantity, sellingQuantity, openDate, closeDate, invested, gain }) => {
 
@@ -29,7 +29,7 @@ const HistoryItemRow = ({ index, ticker, type, entryPrice, sellingPrice, quantit
             <TickerLogo ticker={ticker} logo={coinDetails[0]?.logo} />
           </TableCell>
 
-          <TableCell align="center">
+          <TableCell align="center" className={type === "buy" ? classes.buy : classes.sell}>
             {type}
           </TableCell>
 
@@ -59,8 +59,8 @@ const HistoryItemRow = ({ index, ticker, type, entryPrice, sellingPrice, quantit
             <PreTxtDoubleRow 
               firstPre="buy:"
               secondPre="sell:"
-              firstRow={`${quantity.toFixed(6)} ${ticker}`}
-              secondRow={sellingQuantity ? `${sellingQuantity.toFixed(6)} ${ticker}` : `-`}
+              firstRow={`${cryptoAmountFormatter(quantity.toFixed(6))} ${ticker}`}
+              secondRow={sellingQuantity ? `${cryptoAmountFormatter(sellingQuantity.toFixed(6))} ${ticker}` : `-`}
               preClassName={classes.secondaryTxt}
               firstRowClassName={classes.cryptoAmount}
               secondRowClassName={classes.cryptoAmount}

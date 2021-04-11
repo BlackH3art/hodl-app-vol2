@@ -21,7 +21,13 @@ const useStyles = makeStyles(() => ({
   date: {
     fontSize: "0.875rem",
     color: "black",
-  }
+  },
+  buy: {
+    color: "#3CFB47",
+  },
+  sell: {
+    color: "red",
+  },
 }));
 
 export default useStyles;
