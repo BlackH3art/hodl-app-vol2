@@ -59,7 +59,7 @@ const BalanceInfo = ({ setCurrentId }) => {
         </InfoSquaresWrapper>
 
           <Typography variant="h5" className={classes.title}>
-            {!showOpenPositions ? 'Open positions' : 'Portfolio'}
+            {location.pathname === "/transaction-history" ? "History" : !showOpenPositions ? 'Open positions' : 'Portfolio'}
           <div className={classes.componentsNavigations}>
             {showOpenPositions ? (
               <Link to='/open-positions'>
@@ -84,8 +84,7 @@ const BalanceInfo = ({ setCurrentId }) => {
 
           </Typography>
 
-
-
+          
         
         <Switch>
           <Route path="/open-positions">

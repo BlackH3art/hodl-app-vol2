@@ -59,6 +59,9 @@ const useStyles = makeStyles(() => ({
   }, 
   tickerBox: {
     height: "100%",
+  },
+  tableCell: {
+    paddingRight: "0"
   }
 
 }));

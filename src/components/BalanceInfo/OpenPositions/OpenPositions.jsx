@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Typography, Table, TableHead, TableRow, TableCell } from '@material-ui/core';
+import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 // components
 import OpenPositionRow from './OpenPositionRow/OpenPositionRow';
@@ -33,7 +33,7 @@ const OpenPositions = ({ setCurrentId }) => {
           <TableHead>
             <TableRow>
               <TableCell align="left"><Typography className={classes.tableHead}> # </Typography></TableCell>
-              <TableCell align="left" width="10%"><Typography className={classes.tableHead}> Ticker</Typography></TableCell>
+              <TableCell align="left" width="8%"><Typography className={classes.tableHead}> Ticker</Typography></TableCell>
               <TableCell align="center"><Typography className={classes.tableHead}> Price </Typography></TableCell>
               <TableCell align="right" width="12%"><Typography className={classes.tableHead}> Capital</Typography></TableCell>
               <TableCell align="center"><Typography className={classes.tableHead}> Profit / loss</Typography></TableCell>
@@ -42,6 +42,8 @@ const OpenPositions = ({ setCurrentId }) => {
               <TableCell align="right"><Typography className={classes.tableHead}> Actions </Typography></TableCell>
             </TableRow>
           </TableHead>
+
+          <TableBody>
             {transactions.map((transaction, index) => {
 
               let coinPrice = coinsPriceData.find((coin) => coin.symbol === transaction.ticker.toUpperCase())
@@ -59,6 +61,7 @@ const OpenPositions = ({ setCurrentId }) => {
                 id={transaction._id}
               />
             )})}
+          </TableBody>
         </Table>
 
       </Container>

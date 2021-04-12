@@ -48,7 +48,7 @@ const InputsDoubleRowCell = ({ ticker, id }) => {
   return ( 
     <DoubleRowCellContainer>
       <Grid container>
-        <Grid item lg={10}>
+        <Grid item lg={12}>
 
           <form className={classes.form}>
 
