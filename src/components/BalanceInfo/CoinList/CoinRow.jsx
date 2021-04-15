@@ -35,8 +35,8 @@ const CoinRow = ({ index, ticker, avgEntryPrice, quantitySum, price, dayChange }
     <>
       <TableRow >
         <TableCell align="left">{++index}</TableCell>
-        <TableCell align="left">{coinDetails[0].name}</TableCell>
-        <TableCell align="right">{coinDetails[0].symbol}</TableCell>
+        <TableCell align="left">{coinDetails[0]?.name}</TableCell>
+        <TableCell align="right">{coinDetails[0]?.symbol}</TableCell>
         <TableCell align="right">{usdFormatter.format(avgEntryPrice)}</TableCell>
         <TableCell className={setProfitLossSign(dayChange = "asd", true).startsWith('-') ? classes.loss : classes.gain} align="right">{setProfitLossSign(dayChange = "asd", true)}</TableCell>
         <TableCell align="right">7days</TableCell>
