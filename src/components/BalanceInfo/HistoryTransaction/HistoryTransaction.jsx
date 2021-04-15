@@ -13,7 +13,6 @@ const HistoryTransaction = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const historyItems = useSelector((state) => state.historyReducer);
-  console.log(historyItems[0]);
 
   useEffect(() => {
     dispatch(getHistoryItems())

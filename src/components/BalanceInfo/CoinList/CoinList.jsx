@@ -1,46 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
-import DoubleRowCell from '../DoubleRowCell/DoubleRowCell';
 
-import { coinList } from '../../../helpers/pseudoData';
-import { setProfitLossSign, usdFormatter } from '../../../helpers/helpers';
-
+// hooks
 import useStyles from './coinList.styles';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
+// components 
+import CoinRow from './CoinRow';
+
+// actions 
+import { fetchPricesCoinData } from '../../../redux.actions/coinActions';
+
 
 const CoinList = () => {
 
   const classes = useStyles();
-  const coins = useSelector((state) => state.coinReducer);
+  const dispatch = useDispatch();
+  const coins = useSelector((state) => state.portfolioAverageReducer);
+  const coinsPriceData = useSelector((state) => state.coinDetailsReducer);
 
 
-  const portfolio = coinList.map((coin, index) => {
-              
-    // calculate percent of profit or loss
-    let percentagePNL = (((coin.price - coin.entryPrice) / coin.entryPrice) * 100).toFixed(2);
-    // calculate balance of profit or loss
-    let balancePNL = setProfitLossSign((coin.quantity * coin.price) - (coin.quantity * coin.entryPrice));
-    // should color be green for profit or red for loss?
-    let gainOrLossColor = setProfitLossSign(percentagePNL, true).startsWith('-') ? classes.loss : classes.gain;
+  const tickersToFetchPrices = coins.map((coin) => coin._id.toUpperCase())
 
-    return (
-      <TableRow key={coin.name} >
-        <TableCell align="left">{++index}</TableCell>
-        <TableCell align="left">{coin.name}</TableCell>
-        <TableCell align="right">{coin.ticker}</TableCell>
-        <TableCell align="right">{usdFormatter.format(coin.price)}</TableCell>
-        <TableCell className={setProfitLossSign(coin.dayChange, true).startsWith('-') ? classes.loss : classes.gain} align="right">{setProfitLossSign(coin.dayChange, true)}</TableCell>
-        <TableCell align="right">{coin.last7days}</TableCell>
-        <TableCell align="right">
-          <DoubleRowCell 
-          firstRow={balancePNL} 
-          secondRow={setProfitLossSign(percentagePNL, true)}
-          secondRowClassName={gainOrLossColor}
-          />
-        </TableCell>
-        <TableCell align="right">actions</TableCell>
-      </TableRow>
-    )})
+  useEffect(() => {
+    dispatch(fetchPricesCoinData(tickersToFetchPrices.toString()))
+  }, [dispatch, tickersToFetchPrices]);
+
 
   return ( 
     <>
@@ -59,7 +44,25 @@ const CoinList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {portfolio}
+            {coins.map((coin, index) => {
+              
+              let coinPrice = coinsPriceData.find((coinData) => coinData.symbol === coin._id.toUpperCase())
+
+
+
+              return (
+    
+              <CoinRow 
+                key={index}
+                index={index}
+                ticker={coin._id.toUpperCase()}
+                avgEntryPrice={coin.averagePrice}
+                quantitySum={coin.quantitySum}
+                price={coinPrice?.price}
+                dayChange={coinPrice?.dayChange}
+              />
+                      
+            )})}
           </TableBody>
         </Table>
 

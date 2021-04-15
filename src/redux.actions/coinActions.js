@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA, FETCH_COIN_PRICES } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA, FETCH_COIN_PRICES, FETCH_PORTFOLIO_AVERAGE } from '../redux.actionTypes/actionTypes';
 
 export const getCoins = () => async (dispatch) => {
   try {
@@ -15,6 +15,20 @@ export const getCoins = () => async (dispatch) => {
   };
 };
 
+export const getPortfolioAverage = () => async (dispatch) => {
+  try {
+    const { data } = await api.fetchPortfolioAverage();
+
+    dispatch({
+      type: FETCH_PORTFOLIO_AVERAGE,
+      payload: data
+    });
+
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const addTransaction = (transaction) => async (dispatch) => {
   try {
     const { data } = await api.addTransaction(transaction);
@@ -24,7 +38,7 @@ export const addTransaction = (transaction) => async (dispatch) => {
       payload: data
     });
   } catch (error) {
-    console.log(error.message)
+    console.log(error.message);
   };
 };
 
@@ -101,5 +115,4 @@ export const fetchPricesCoinData = (ticker) => async (dispatch) => {
   };
 };
 
-// utworzyć akcję 
 

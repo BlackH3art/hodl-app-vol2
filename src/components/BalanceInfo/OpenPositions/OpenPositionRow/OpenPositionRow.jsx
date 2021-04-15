@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Typography, TableRow, TableCell } from '@material-ui/core';
 
 // components
 import DoubleRowCell from '../../DoubleRowCell/DoubleRowCell';

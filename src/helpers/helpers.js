@@ -47,8 +47,6 @@ export const dateFormatter = (date) => {
 
 export const cryptoAmountFormatter = (amount) => {
 
-  console.log(typeof amount, amount);
-
   const amountString = amount.toString();
   
   let indexofDot = amountString.indexOf('.');

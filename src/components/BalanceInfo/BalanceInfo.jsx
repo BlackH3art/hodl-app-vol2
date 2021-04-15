@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button } from '@material-ui/core';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import { getCoins } from '../../redux.actions/coinActions';
+import { getCoins, getPortfolioAverage } from '../../redux.actions/coinActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
 import { userinfo } from '../../helpers/pseudoData';
 
@@ -36,6 +36,7 @@ const BalanceInfo = ({ setCurrentId }) => {
   
   useEffect(() => {
     dispatch(getCoins());
+    dispatch(getPortfolioAverage());
   },[dispatch]);
 
   const goBack = () => {
@@ -58,8 +59,8 @@ const BalanceInfo = ({ setCurrentId }) => {
           <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} />
         </InfoSquaresWrapper>
 
-          <Typography variant="h5" className={classes.title}>
-            {location.pathname === "/transaction-history" ? "History" : !showOpenPositions ? 'Open positions' : 'Portfolio'}
+        <Typography variant="h5" className={classes.title}>
+          {location.pathname === "/transaction-history" ? "History" : !showOpenPositions ? 'Open positions' : 'Portfolio'}
           <div className={classes.componentsNavigations}>
             {showOpenPositions ? (
               <Link to='/open-positions'>
@@ -82,7 +83,7 @@ const BalanceInfo = ({ setCurrentId }) => {
             </Link>
           </div>
 
-          </Typography>
+        </Typography>
 
           
         
