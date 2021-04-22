@@ -2,7 +2,7 @@ import React from 'react';
 
 import useStyles from '../openPositions.styles';
 
-const TickerLogo = ({ logo, ticker }) => {
+const TickerLogo = ({ logo, ticker, name }) => {
 
   const classes = useStyles();
 
@@ -10,7 +10,7 @@ const TickerLogo = ({ logo, ticker }) => {
     <div className={classes.tickerLogoContainer}>
       <img className={classes.logo} src={logo} alt={ticker} height="20px" /> 
       <div className={classes.tickerBox}>
-        <p>{ticker}</p>
+        <p>{name} {ticker}</p>
       </div>
     </div>
    );

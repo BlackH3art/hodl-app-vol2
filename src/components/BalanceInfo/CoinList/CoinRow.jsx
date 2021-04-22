@@ -10,6 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // components 
 import DoubleRowCell from '../DoubleRowCell/DoubleRowCell';
+import TickerLogo from '../OpenPositions/OpenPositionRow/TickerLogo';
+import PreTxtDoubleRowCell from '../OpenPositions/PreTxtDoubleRowCell/PreTxtDoubleRowCell';
 
 // action
 import { fetchCoinDataFromCMC } from '../../../redux.actions/coinActions';
@@ -35,10 +37,20 @@ const CoinRow = ({ index, ticker, avgEntryPrice, quantitySum, price, dayChange }
     <>
       <TableRow >
         <TableCell align="left">{++index}</TableCell>
-        <TableCell align="left">{coinDetails[0]?.name}</TableCell>
+        <TableCell align="left">
+          <TickerLogo logo={coinDetails[0]?.logo} name={coinDetails[0]?.name} />
+        </TableCell>
         <TableCell align="right">{coinDetails[0]?.symbol}</TableCell>
-        <TableCell align="right">{usdFormatter.format(avgEntryPrice)}</TableCell>
-        <TableCell className={setProfitLossSign(dayChange = "asd", true).startsWith('-') ? classes.loss : classes.gain} align="right">{setProfitLossSign(dayChange = "asd", true)}</TableCell>
+        <TableCell align="right">
+          <PreTxtDoubleRowCell 
+            firstPre={'current:'}
+            firstRow={usdFormatter.format(price)} 
+            secondPre={'entry:'}
+            secondRow={usdFormatter.format(avgEntryPrice)}
+            preClassName={classes.secondaryTxt}
+          />
+        </TableCell>
+        <TableCell className={dayChange?.toFixed(2).toString().startsWith('-') ? classes.loss : classes.gain} align="right">{dayChange?.toFixed(2).toString()}%</TableCell>
         <TableCell align="right">7days</TableCell>
         <TableCell align="right">
           <DoubleRowCell 

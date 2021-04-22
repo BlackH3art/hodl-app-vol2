@@ -15,6 +15,11 @@ const useStyles = makeStyles(() => ({
   },
   loss: {
     color: "red",
+  },
+  secondaryTxt: {
+    fontSize: "0.875rem",
+    color: "#7A7774",
+    paddingRight: "10px"
   }
 }))
 
