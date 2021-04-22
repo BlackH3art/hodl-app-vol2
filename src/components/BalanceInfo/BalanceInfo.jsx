@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button } from '@material-ui/core';
 import { Switch, Route, Link } from 'react-router-dom';
 
-import { getCoins, getPortfolioAverage } from '../../redux.actions/coinActions';
+import { getCoins, getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
 import { userinfo } from '../../helpers/pseudoData';
 
 import useStyles from './balanceInfo.styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import CoinList from './CoinList/CoinList';
@@ -38,6 +38,15 @@ const BalanceInfo = ({ setCurrentId }) => {
     dispatch(getCoins());
     dispatch(getPortfolioAverage());
   },[dispatch]);
+
+  const transactions = useSelector((state) => state.portfolioAverageReducer);
+  const tickersToFetchPrices = transactions.map((transaction) => transaction._id.toUpperCase())
+
+  useEffect(() => {
+    dispatch(fetchPricesCoinData(tickersToFetchPrices.toString()));
+  }, [dispatch, tickersToFetchPrices])
+
+  console.log('ticker to fetch -----> ', tickersToFetchPrices);
 
   const goBack = () => {
     if(location.pathname === "/transaction-history") {

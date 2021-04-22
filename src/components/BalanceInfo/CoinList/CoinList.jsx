@@ -1,30 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 // hooks
 import useStyles from './coinList.styles';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // components 
 import CoinRow from './CoinRow';
 
-// actions 
-import { fetchPricesCoinData } from '../../../redux.actions/coinActions';
 
 
 const CoinList = () => {
 
   const classes = useStyles();
-  const dispatch = useDispatch();
   const coins = useSelector((state) => state.portfolioAverageReducer);
   const coinsPriceData = useSelector((state) => state.coinDetailsReducer);
-
-
-  const tickersToFetchPrices = coins.map((coin) => coin._id.toUpperCase())
-
-  useEffect(() => {
-    dispatch(fetchPricesCoinData(tickersToFetchPrices.toString()))
-  }, [dispatch, tickersToFetchPrices]);
 
 
   return ( 

@@ -8,12 +8,14 @@ export default function coinDetailsReducer(state = [], action) {
 
     case FETCH_COIN_PRICES:
 
-      for (let key in action.payload.data) {
+      for (let key in action.payload) {
 
-        let coinData = state.find((coin) => coin.symbol === action.payload.data[key].symbol);
+        let coinData = state.find((coin) => coin.symbol === action.payload[key].symbol);
 
-        coinData.price = action.payload.data[key].quote.USD.price;
-        coinData.change24h = action.payload.data[key].quote.USD.percent_change_24h;
+        coinData.price = action.payload[key].quote.USD.price;
+        coinData.change1h = action.payload[key].quote.USD.percent_change_1h;
+        coinData.change24h = action.payload[key].quote.USD.percent_change_24h;
+        coinData.change7d = action.payload[key].quote.USD.percent_change_7d;
       }
 
 

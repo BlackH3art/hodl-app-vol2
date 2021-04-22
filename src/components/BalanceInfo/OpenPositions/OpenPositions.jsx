@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 // components
@@ -6,10 +6,7 @@ import OpenPositionRow from './OpenPositionRow/OpenPositionRow';
 
 // hooks
 import useStyles from './openPositions.styles';
-import { useSelector, useDispatch } from 'react-redux';
-
-//actions 
-import { fetchPricesCoinData } from '../../../redux.actions/coinActions';
+import { useSelector } from 'react-redux';
 
 
 const OpenPositions = ({ setCurrentId }) => {
@@ -17,13 +14,6 @@ const OpenPositions = ({ setCurrentId }) => {
   const classes = useStyles();
   const transactions = useSelector((state) => state.coinReducer);
   const coinsPriceData = useSelector((state) => state.coinDetailsReducer);
-  const dispatch = useDispatch();
-
-  const tickersToFetchPrices = transactions.map((transaction) => transaction.ticker.toUpperCase())
-
-  useEffect(() => {
-    dispatch(fetchPricesCoinData(tickersToFetchPrices.toString()))
-  }, [dispatch, tickersToFetchPrices]);
 
 
   return ( 
