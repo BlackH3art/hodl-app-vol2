@@ -20,6 +20,10 @@ const useStyles = makeStyles(() => ({
     fontSize: "0.875rem",
     color: "#7A7774",
     paddingRight: "10px"
+  },
+  cryptoAmount: {
+    fontSize: "0.875rem",
+    color: "#7A7774",
   }
 }))
 

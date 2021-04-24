@@ -25,12 +25,13 @@ const CoinList = () => {
             <TableRow>
               <TableCell align="left"><Typography className={classes.tableHead}> # </Typography></TableCell>
               <TableCell align="left"><Typography className={classes.tableHead}> Coin </Typography></TableCell>
-              <TableCell align="right"><Typography className={classes.tableHead}> Ticker</Typography></TableCell>
-              <TableCell align="center"><Typography className={classes.tableHead}> Price </Typography></TableCell>
+              <TableCell align="left"><Typography className={classes.tableHead}> Ticker</Typography></TableCell>
+              <TableCell align="center" width="20%"><Typography className={classes.tableHead}> Price </Typography></TableCell>
+              <TableCell align="right"><Typography className={classes.tableHead}> 1h </Typography></TableCell>
               <TableCell align="right"><Typography className={classes.tableHead}> 24h </Typography></TableCell>
-              <TableCell align="right"><Typography className={classes.tableHead}> Last 7 days </Typography></TableCell>
+              <TableCell align="right"><Typography className={classes.tableHead}> 7 days </Typography></TableCell>
+              <TableCell align="right"><Typography className={classes.tableHead}> Shares </Typography></TableCell>
               <TableCell align="right"><Typography className={classes.tableHead}> Profit / loss</Typography></TableCell>
-              <TableCell align="right"><Typography className={classes.tableHead}> Actions </Typography></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -47,7 +48,9 @@ const CoinList = () => {
                 avgEntryPrice={coin.averagePrice}
                 quantitySum={coin.quantitySum}
                 price={coinPrice?.price}
+                hourChange={coinPrice?.change1h}
                 dayChange={coinPrice?.change24h}
+                sevenDayChange={coinPrice?.change7d}
               />
                       
             )})}
