@@ -4,7 +4,9 @@ export default function coinDetailsReducer(state = [], action) {
   switch (action.type) {
 
     case FETCH_COIN_DATA:
-      return [...state, action.payload]
+
+      return [...state, action.payload];
+
 
     case FETCH_COIN_PRICES:
 

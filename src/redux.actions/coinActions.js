@@ -32,7 +32,7 @@ export const getPortfolioAverage = () => async (dispatch) => {
 export const addTransaction = (transaction) => async (dispatch) => {
   try {
     const { data } = await api.addTransaction(transaction);
-
+    console.log(data);
     dispatch({
       type: ADD_TRANSACTION,
       payload: data

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Button, Grid, Typography, Container, MenuItem, FormControl } from '@material-ui/core';
+import { TextField, Button, Grid, Typography, Container, FormControl } from '@material-ui/core';
 import { ButtonWrapper } from '../styledComponents/styledComponents';
 
-import { addTransaction, editTransaction } from '../../redux.actions/coinActions';
+import { addTransaction, editTransaction, fetchPricesCoinData } from '../../redux.actions/coinActions';
 import useStyles from './addCoinForm.styles';
 
 const AddTransactionForm = ({ currentId, setCurrentId }) => {
@@ -36,6 +36,8 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
         ...coinData,
         openDate: new Date(),
       }));
+      
+      dispatch(fetchPricesCoinData(coinData.ticker.toUpperCase()));
     }
 
     clear();
@@ -69,13 +71,6 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
             <Grid item lg={3} sm={10}>
               <TextField name="ticker" variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
             </Grid>
-
-            {/* <Grid item lg={2} sm={10}>
-              <TextField SelectProps={{ autoWidth: true }} select name="type" variant="standard" label="buy / sell" fullWidth value={coinData.type}   onChange={handleChange}>
-                <MenuItem value="buy">buy</MenuItem>
-                <MenuItem value="sell">sell</MenuItem>
-              </TextField>
-            </Grid> */}
 
             <Grid item lg={3} sm={10}>
               <TextField name="quantity" variant="standard" label="Quantity" fullWidth value={coinData.quantity} onChange={handleChange} />

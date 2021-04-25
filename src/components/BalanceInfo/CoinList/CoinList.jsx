@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 // hooks
 import useStyles from './coinList.styles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // components 
 import CoinRow from './CoinRow';
 
+// action 
+import { getPortfolioAverage } from '../../../redux.actions/coinActions';
 
 
 const CoinList = () => {
@@ -15,6 +17,12 @@ const CoinList = () => {
   const classes = useStyles();
   const coins = useSelector((state) => state.portfolioAverageReducer);
   const coinsPriceData = useSelector((state) => state.coinDetailsReducer);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(getPortfolioAverage());
+  },[dispatch]);
 
 
   return ( 
