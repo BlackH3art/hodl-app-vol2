@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TableRow, TableCell, TableBody } from '@material-ui/core';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import TickerLogo from '../OpenPositions/OpenPositionRow/TickerLogo';
 import PreTxtDoubleRow from '../OpenPositions/PreTxtDoubleRowCell/PreTxtDoubleRowCell';
@@ -10,12 +10,20 @@ import useStyles from './historyTransaction.styles';
 
 import { dateFormatter, usdFormatter, cryptoAmountFormatter } from '../../../helpers/helpers';
 
+import { fetchCoinDataFromCMC } from '../../../redux.actions/coinActions';
+
+
 const HistoryItemRow = ({ index, ticker, type, entryPrice, sellingPrice, quantity, sellingQuantity, openDate, closeDate, invested, gain }) => {
 
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const coinsDetails = useSelector((state) => state.coinDetailsReducer);
   const coinDetails = coinsDetails.filter((coin) => coin.symbol === ticker);
+
+  useEffect(() => {
+    dispatch(fetchCoinDataFromCMC(ticker.toUpperCase()))
+  }, [dispatch, ticker])
 
   return ( 
     <>
