@@ -4,7 +4,7 @@ import { Container, Typography, Table, TableHead, TableRow, TableCell } from '@m
 import useStyles from './historyTransaction.styles';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getHistoryItems } from '../../../redux.actions/historyActions';
+import { getHistoryItems, getHistoryItemsDetails } from '../../../redux.actions/historyActions';
 
 import HistoryItemRow from './HistoryItemRow';
 
@@ -15,7 +15,8 @@ const HistoryTransaction = () => {
   const historyItems = useSelector((state) => state.historyReducer);
 
   useEffect(() => {
-    dispatch(getHistoryItems())
+    dispatch(getHistoryItems());
+    dispatch(getHistoryItemsDetails());
   }, [dispatch]); 
 
 
