@@ -15,4 +15,4 @@ export const fetchCoinPrice = (ticker) => axios.get(`${url}/cmcdata/prices/${tic
 
 
 export const fetchHistoryItems = () => axios.get(`${url}/history`);
-export const fetchHistoryItemsDetails = () => axios.get(`${url}/history/coins-datails`);
+export const fetchHistoryItemsDetails = (tickers) => axios.get(`${url}/history/coins-datails/${tickers}`);

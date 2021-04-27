@@ -14,9 +14,12 @@ const HistoryTransaction = () => {
   const dispatch = useDispatch();
   const historyItems = useSelector((state) => state.historyReducer);
 
+  const historyTickersToFetch = historyItems.map(item => item.ticker.toUpperCase());
+
   useEffect(() => {
+    console.log(historyTickersToFetch)
     dispatch(getHistoryItems());
-    dispatch(getHistoryItemsDetails());
+    dispatch(getHistoryItemsDetails(historyTickersToFetch));
   }, [dispatch]); 
 
 

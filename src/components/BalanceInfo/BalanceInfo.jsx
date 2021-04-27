@@ -46,8 +46,6 @@ const BalanceInfo = ({ setCurrentId }) => {
     dispatch(fetchPricesCoinData(tickersToFetchPrices.toString()));
   }, [dispatch, tickersToFetchPrices])
 
-  console.log('ticker to fetch -----> ', tickersToFetchPrices);
-
   const goBack = () => {
     if(location.pathname === "/transaction-history") {
       history.goBack()

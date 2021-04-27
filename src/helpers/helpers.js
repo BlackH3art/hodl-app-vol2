@@ -78,4 +78,14 @@ export const cryptoAmountFormatter = (amount) => {
   const formattedAmount = Number(integer) + Number(decimals);
 
   return formattedAmount;
+}; 
+
+export const filterTickersArrayToFetchDB = (array) => {
+
+  let historyItemTickers = []; 
+  array.forEach((item) => historyItemTickers.push(item));
+
+  const historyTickerToFetch = historyItemTickers.filter((value, index, self) => self.indexOf(value) === index);
+
+  return historyTickerToFetch;
 }

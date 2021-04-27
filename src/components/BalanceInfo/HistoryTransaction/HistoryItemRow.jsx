@@ -18,12 +18,13 @@ const HistoryItemRow = ({ index, ticker, type, entryPrice, sellingPrice, quantit
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const coinsDetails = useSelector((state) => state.coinDetailsReducer);
+  const coinsDetails = useSelector((state) => state.historyItemsDetailsReducer);
   const coinDetails = coinsDetails.filter((coin) => coin.symbol === ticker);
 
-  useEffect(() => {
-    dispatch(fetchCoinDataFromCMC(ticker.toUpperCase()))
-  }, [dispatch, ticker])
+  console.log('coins detail ---> ', coinsDetails)
+  // useEffect(() => {
+  //   dispatch(fetchCoinDataFromCMC(ticker.toUpperCase()))
+  // }, [dispatch, ticker])
 
   return ( 
     <>
