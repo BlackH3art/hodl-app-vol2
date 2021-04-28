@@ -3,6 +3,7 @@ import { Container, Typography, Button } from '@material-ui/core';
 import { Switch, Route, Link } from 'react-router-dom';
 
 import { getCoins, getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
+import { getHistoryItems } from '../../redux.actions/historyActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
 import { userinfo } from '../../helpers/pseudoData';
 
@@ -37,6 +38,7 @@ const BalanceInfo = ({ setCurrentId }) => {
   useEffect(() => {
     dispatch(getCoins());
     dispatch(getPortfolioAverage());
+    dispatch(getHistoryItems());
   },[dispatch]);
 
   const transactions = useSelector((state) => state.portfolioAverageReducer);

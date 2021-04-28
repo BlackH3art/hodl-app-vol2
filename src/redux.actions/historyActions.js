@@ -21,6 +21,7 @@ export const getHistoryItems = () => async (dispatch) => {
 export const getHistoryItemsDetails = (tickers) => async (dispatch) => {
   try {
     const uniqTickers = filterTickersArrayToFetchDB(tickers).toString()
+    console.log(uniqTickers)
 
     const { data } = await api.fetchHistoryItemsDetails(uniqTickers);
 

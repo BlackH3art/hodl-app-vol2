@@ -34,4 +34,8 @@ export default App;
 // 2. przy dodawaniu brak odświeżenia i pobrania ceny dodawanaego coina --------- rozwiązane
 // 3. po usunięciu coina z open postitions, coin nie usuwa się z "portfolio" ---------- rozwiązane
 // 4. w historii nie pobiera się ikona usuniętego z open positions elementu. ---------- rozwiązane 
-// 5. przechodząc do historii wysyłana jest akcja fetchująca ceny z CMC a nie jest to potrzebne
+// 5. przechodząc do historii wysyłana jest akcja fetchująca ceny z CMC a nie jest to potrzebne 
+//    - utworzyć odrębną akcję dla itemów w historii która odpytuje bazę danych po logo coinów. --------- rozwiązane
+// 6. problem z pobieraniem logo, historia fetchuje się asynchronicznie a useEffekt się nie odpala --------- rozwiązane
+//    - wymagane jest teraz odpalenie komponentu BalanceInfo przed otwarciem historii
+// 7. przechodząc na "Portfolio", dwukrotnie wysyłana jest akcja fetchująca ceny z CMC - CoinList komponent.
