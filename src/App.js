@@ -5,6 +5,7 @@ import useStyles from './app.styles';
 import MainNav from './components/MainNav/MainNav';
 import BalanceInfo from './components/BalanceInfo/BalanceInfo';
 import AddCoinForm from './components/AddCoinForm/AddCoinForm';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
 
@@ -21,6 +22,8 @@ const App = () => {
           <BalanceInfo setCurrentId={setCurrentId} />
 
         </div>
+        
+        <Footer />
       </Router>
     </>
    );
