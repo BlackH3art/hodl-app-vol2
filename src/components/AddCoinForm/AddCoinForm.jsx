@@ -37,7 +37,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
         openDate: new Date(),
       }));
       
-      dispatch(fetchPricesCoinData(coinData.ticker.toUpperCase()));
+      // dispatch(fetchPricesCoinData(coinData.ticker.toUpperCase()));
     }
 
     clear();

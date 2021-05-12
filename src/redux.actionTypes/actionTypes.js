@@ -8,6 +8,11 @@ export const SELL_TRANSACTION = "SELL_TRANSACTION";
 export const FETCH_COIN_DATA = "FETCH_COIN_DATA";
 export const FETCH_COIN_PRICES = "FETCH_COIN_PRICES";
 
-//history 
+// history 
 export const GET_HISTORY_ITEMS = "GET_HISTORY_ITEMS";
 export const GET_HISTORY_ITEMS_DETAILS = "GET_HISTORY_ITEMS_DETAILS";
+
+// errors
+export const NO_SUCH_COIN_IN_CMC = "NO_SUCH_COIN_IN_CMC";
+export const UNKNOWN_ERROR = "UNKNOWN_ERROR";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";

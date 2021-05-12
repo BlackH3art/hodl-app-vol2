@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA, FETCH_COIN_PRICES, FETCH_PORTFOLIO_AVERAGE } from '../redux.actionTypes/actionTypes';
+import { FETCH_PORTFOLIO, ADD_TRANSACTION, EDIT_TRANSACTION, DELETE_TRANSACTION, SELL_TRANSACTION, FETCH_COIN_DATA, FETCH_COIN_PRICES, FETCH_PORTFOLIO_AVERAGE, NO_SUCH_COIN_IN_CMC, UNKNOWN_ERROR, CLEAR_ERRORS } from '../redux.actionTypes/actionTypes';
 
 export const getCoins = () => async (dispatch) => {
   try {
@@ -30,16 +30,49 @@ export const getPortfolioAverage = () => async (dispatch) => {
 }
 
 export const addTransaction = (transaction) => async (dispatch) => {
+  
+  dispatch({
+    type: CLEAR_ERRORS,
+  })
+
   try {
-    const { data } = await api.addTransaction(transaction);
-    console.log(data);
-    dispatch({
-      type: ADD_TRANSACTION,
-      payload: data
-    });
+    const response = await api.addTransaction(transaction);
+    console.log(response);
+
+    switch (response.status) {
+      case 201:
+        dispatch({
+          type: ADD_TRANSACTION,
+          payload: response.data
+        });
+        break;
+      
+      case 409: 
+        dispatch({
+          type: NO_SUCH_COIN_IN_CMC,
+          payload: "There's no such coin."
+        });
+        break;
+    
+      default:
+        dispatch({
+          type: UNKNOWN_ERROR,
+          payload: "Unknown error."
+        });
+        break;
+    }  
+
   } catch (error) {
-    console.log(error.message);
-  };
+    console.log('catched w akcji reduxa');
+    dispatch({
+      type: UNKNOWN_ERROR,
+      payload: "There's no such coin."
+    });
+  }
+
+
+
+
 };
 
 export const editTransaction = (id, transaction) => async (dispatch) => {
