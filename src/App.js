@@ -42,3 +42,6 @@ export default App;
 // 6. problem z pobieraniem logo, historia fetchuje się asynchronicznie a useEffekt się nie odpala --------- rozwiązane
 //    - wymagane jest teraz odpalenie komponentu BalanceInfo przed otwarciem historii
 // 7. przechodząc na "Portfolio", dwukrotnie wysyłana jest akcja fetchująca ceny z CMC - CoinList komponent.
+// 8. wyświetlić komunikat błędu pod inputem 
+// 9. input reaguje na błąd, ale najpierw transakcja jest wysłana --------- rozwiązane
+

@@ -4,7 +4,10 @@ import { TextField, Button, Grid, Typography, Container, FormControl } from '@ma
 import { ButtonWrapper } from '../styledComponents/styledComponents';
 
 import { addTransaction, editTransaction, fetchPricesCoinData } from '../../redux.actions/coinActions';
+import { NO_SUCH_COIN_IN_CMC, CLEAR_ERRORS } from '../../redux.actionTypes/actionTypes';
 import useStyles from './addCoinForm.styles';
+
+import { isThereSuchCoin } from '../../api/index';
 
 const AddTransactionForm = ({ currentId, setCurrentId }) => {
 
@@ -19,28 +22,58 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
 
   // transakcja do edytowania
   const transaction = useSelector((state) => currentId ? state.coinReducer.find((transaction) => transaction._id === currentId ) : null );
-
+  const errors = useSelector((state) => state.errorReducer);
 
   useEffect(() => {
     // jeżeli transaction będzie miała wartość === transakcja ma być edytowana nie dodawana
     if(transaction) return setCoinData(transaction);
   }, [transaction])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    dispatch({
+      type: CLEAR_ERRORS,
+    });
 
     if(currentId) {
       dispatch(editTransaction(currentId, coinData))
     } else {
-      dispatch(addTransaction({
-        ...coinData,
-        openDate: new Date(),
-      }));
-      
-      // dispatch(fetchPricesCoinData(coinData.ticker.toUpperCase()));
-    }
 
-    clear();
+      try {
+
+        const response = await isThereSuchCoin(coinData.ticker);
+        console.log(response)
+        
+        switch (response.status) {
+          case 200:
+            dispatch(addTransaction({
+              ...coinData,
+              openDate: new Date(),
+            }));
+    
+            clear();
+            break;
+
+          case 400: 
+            dispatch({
+              type: NO_SUCH_COIN_IN_CMC,
+              payload: "There's no such coin."
+            });
+            break;
+        
+          default:
+            break;
+        }
+
+      } catch (error) {
+
+        dispatch({
+          type: NO_SUCH_COIN_IN_CMC,
+          payload: "There's no such coin."
+        });
+      }
+    }
   }
 
   const handleChange =(e) => {
@@ -69,7 +102,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
           <Grid container justify="space-around">
 
             <Grid item lg={3} sm={10}>
-              <TextField name="ticker" variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
+              <TextField name="ticker" error={errors.length >= 1} variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
             </Grid>
 
             <Grid item lg={3} sm={10}>

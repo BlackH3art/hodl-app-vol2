@@ -12,6 +12,7 @@ export const sellTransaction = (id, sellingTransaction) => axios.patch(`${url}/p
 
 export const fetchCoinData = (ticker) => axios.get(`${url}/cmcdata/${ticker}`);
 export const fetchCoinPrice = (ticker) => axios.get(`${url}/cmcdata/prices/${ticker}`);
+export const isThereSuchCoin = (ticker) => axios.get(`${url}/cmcdata/check/${ticker}`);
 
 
 export const fetchHistoryItems = () => axios.get(`${url}/history`);

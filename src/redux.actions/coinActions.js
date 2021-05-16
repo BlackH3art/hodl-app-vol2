@@ -33,49 +33,31 @@ export const addTransaction = (transaction) => async (dispatch) => {
   
   dispatch({
     type: CLEAR_ERRORS,
-  })
+  });
 
   try {
-    const response = await api.addTransaction(transaction);
-    console.log(response);
 
-    switch (response.status) {
-      case 201:
-        dispatch({
-          type: ADD_TRANSACTION,
-          payload: response.data
-        });
-        break;
-      
-      case 409: 
-        dispatch({
-          type: NO_SUCH_COIN_IN_CMC,
-          payload: "There's no such coin."
-        });
-        break;
-    
-      default:
-        dispatch({
-          type: UNKNOWN_ERROR,
-          payload: "Unknown error."
-        });
-        break;
-    }  
+    const { data } = await api.addTransaction(transaction);
 
+    dispatch({
+      type: ADD_TRANSACTION,
+      payload: data
+    });
+       
   } catch (error) {
-    console.log('catched w akcji reduxa');
     dispatch({
       type: UNKNOWN_ERROR,
       payload: "There's no such coin."
     });
   }
-
-
-
-
 };
 
 export const editTransaction = (id, transaction) => async (dispatch) => {
+
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
+
   try {
     const { data } = await api.editTransaction(id, transaction);
 
