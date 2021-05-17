@@ -26,7 +26,10 @@ const useStyles = makeStyles(() => ({
     borderColor: "rgba(17,153,142,1)",
     fontSize: "1em",
     width: "75px"
-
+  }, 
+  errorMessage: {
+    color: "red",
+    fontSize: "0.8rem"
   }
 }));
 

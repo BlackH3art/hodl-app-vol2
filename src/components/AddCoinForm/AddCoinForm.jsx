@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Grid, Typography, Container, FormControl } from '@material-ui/core';
 import { ButtonWrapper } from '../styledComponents/styledComponents';
 
-import { addTransaction, editTransaction, fetchPricesCoinData } from '../../redux.actions/coinActions';
-import { NO_SUCH_COIN_IN_CMC, CLEAR_ERRORS } from '../../redux.actionTypes/actionTypes';
+import { addTransaction, editTransaction } from '../../redux.actions/coinActions';
+import { NO_SUCH_COIN_IN_CMC, CLEAR_ERRORS, FIELDS_ARE_REQUIRED } from '../../redux.actionTypes/actionTypes';
 import useStyles from './addCoinForm.styles';
 
 import { isThereSuchCoin } from '../../api/index';
@@ -12,20 +12,22 @@ import { isThereSuchCoin } from '../../api/index';
 const AddTransactionForm = ({ currentId, setCurrentId }) => {
 
   const classes = useStyles(); 
+  const dispatch = useDispatch();
   const [coinData, setCoinData] = useState({
     ticker: '',
     type: 'buy',
     quantity: '',
     entryPrice: '',
   }); 
-  const dispatch = useDispatch();
+  const [errorsObject, setErrorsObject] = useState({
+    coin: "",
+    quantity: "",
+    price: ""
+  })
 
-  // transakcja do edytowania
   const transaction = useSelector((state) => currentId ? state.coinReducer.find((transaction) => transaction._id === currentId ) : null );
-  const errors = useSelector((state) => state.errorReducer);
 
   useEffect(() => {
-    // jeżeli transaction będzie miała wartość === transakcja ma być edytowana nie dodawana
     if(transaction) return setCoinData(transaction);
   }, [transaction])
 
@@ -36,6 +38,103 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
       type: CLEAR_ERRORS,
     });
 
+    setErrorsObject({
+      coin: "",
+      quantity: "",
+      price: ""
+    });
+
+    if (!coinData.ticker && !coinData.quantity && !coinData.entryPrice) {
+
+      setErrorsObject({
+        coin: "Coin ticker is required",
+        quantity: "Quantity is required",
+        price: "Entry price is required"
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+
+    } else if (coinData.ticker && !coinData.quantity && !coinData.entryPrice) {
+      setErrorsObject({
+        coin: "",
+        quantity: "Quantity is required",
+        price: "Entry price is required"
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+
+    } else if (!coinData.ticker && coinData.quantity && !coinData.entryPrice) {
+      setErrorsObject({
+        coin: "Coin ticker is required",
+        quantity: "",
+        price: "Entry price is required"
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+
+    } else if (!coinData.ticker && !coinData.quantity && coinData.entryPrice) {
+      
+      setErrorsObject({
+        coin: "Coin ticker is required",
+        quantity: "Quantity is required",
+        price: ""
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+
+    } else if (coinData.ticker && coinData.quantity && !coinData.entryPrice) {
+
+      setErrorsObject({
+        coin: "",
+        quantity: "",
+        price: "Entry price is required"
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+
+    } else if (coinData.ticker && !coinData.quantity && coinData.entryPrice) {
+
+      setErrorsObject({
+        coin: "",
+        quantity: "Quantity is required",
+        price: ""
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+
+    } else if (!coinData.ticker && coinData.quantity && coinData.entryPrice) {
+
+      setErrorsObject({
+        coin: "Coin ticker is required",
+        quantity: "",
+        price: ""
+      }); 
+
+      return dispatch({
+        type: FIELDS_ARE_REQUIRED,
+        payload: errorsObject
+      });
+    }
+
+
     if(currentId) {
       dispatch(editTransaction(currentId, coinData))
     } else {
@@ -43,7 +142,6 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
       try {
 
         const response = await isThereSuchCoin(coinData.ticker);
-        console.log(response)
         
         switch (response.status) {
           case 200:
@@ -68,9 +166,17 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
 
       } catch (error) {
 
+        console.log(error.message);
+
+        setErrorsObject({
+          coin: "There's no such coin",
+          quantity: "",
+          price: ""
+        })
+
         dispatch({
           type: NO_SUCH_COIN_IN_CMC,
-          payload: "There's no such coin."
+          payload: errorsObject
         });
       }
     }
@@ -87,6 +193,13 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
       quantity: '',
       entryPrice: '',
     });
+
+    setErrorsObject({
+      coin: "",
+      quantity: "",
+      price: ""
+    });
+    
     setCurrentId(null);
   }
 
@@ -102,15 +215,30 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
           <Grid container justify="space-around">
 
             <Grid item lg={3} sm={10}>
-              <TextField name="ticker" error={errors.length >= 1} variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
+              <TextField name="ticker" error={errorsObject.coin ? true : false} variant="standard" label="Coin ticker" fullWidth value={coinData.ticker} onChange={handleChange} />
+              {errorsObject.coin && 
+                <Typography className={classes.errorMessage}>
+                  {errorsObject.coin}
+                </Typography>
+              }
             </Grid>
 
             <Grid item lg={3} sm={10}>
-              <TextField name="quantity" variant="standard" label="Quantity" fullWidth value={coinData.quantity} onChange={handleChange} />
+              <TextField name="quantity" error={errorsObject.quantity ? true : false} type="number" variant="standard" label="Quantity" fullWidth value={coinData.quantity} onChange={handleChange} />
+              {errorsObject.quantity && 
+                <Typography className={classes.errorMessage}>
+                  {errorsObject.quantity}
+                </Typography>
+              }
             </Grid>
 
             <Grid item lg={3} sm={10}>
-              <TextField name="entryPrice" variant="standard" label="Price" fullWidth value={coinData.entryPrice} onChange={handleChange} />
+              <TextField name="entryPrice" error={errorsObject.price ? true : false} type="number" variant="standard" label="Price" fullWidth value={coinData.entryPrice} onChange={handleChange} />
+              {errorsObject.price && 
+                <Typography className={classes.errorMessage}>
+                  {errorsObject.price}
+                </Typography>
+              }
             </Grid>
 
           </Grid>
