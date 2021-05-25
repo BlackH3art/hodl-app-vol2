@@ -24,7 +24,7 @@ import { deleteTransaction, fetchCoinDataFromCMC } from '../../../../redux.actio
 
 
 
-const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, date, id, ticker }) => {
+const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, date, id, ticker, setBalanceOfCoins }) => {
   
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -43,7 +43,15 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
   let currentDolarBalance = quantity * price;
   let investedDolarAmount = quantity * entryPrice;
   let dolarGainLoss = currentDolarBalance - investedDolarAmount;
-  let percentGainLoss = (((price - entryPrice) / entryPrice) * 100).toFixed(2)
+  let percentGainLoss = (((price - entryPrice) / entryPrice) * 100).toFixed(2);
+
+  useEffect(() => {
+    if(currentDolarBalance) {
+      setBalanceOfCoins((prevState) => {
+        return [...prevState, currentDolarBalance];
+      });
+    }
+  }, [setBalanceOfCoins, currentDolarBalance]);
 
   return ( 
     <>

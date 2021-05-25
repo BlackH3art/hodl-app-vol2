@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getCoins } from '../../../redux.actions/coinActions';
 
 
-const OpenPositions = ({ setCurrentId }) => {
+const OpenPositions = ({ setCurrentId, setBalanceOfCoins }) => {
 
   const classes = useStyles();
   const transactions = useSelector((state) => state.coinReducer);
@@ -57,6 +57,7 @@ const OpenPositions = ({ setCurrentId }) => {
                 date={transaction.openDate}
                 ticker={transaction.ticker.toUpperCase()}
                 id={transaction._id}
+                setBalanceOfCoins={setBalanceOfCoins}
               />
             )})}
           </TableBody>

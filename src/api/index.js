@@ -17,3 +17,6 @@ export const isThereSuchCoin = (ticker) => axios.get(`${url}/cmcdata/check/${tic
 
 export const fetchHistoryItems = () => axios.get(`${url}/history`);
 export const fetchHistoryItemsDetails = (tickers) => axios.get(`${url}/history/coins-datails/${tickers}`);
+
+
+export const fetchBalanceInfo = () => axios.get(`${url}/balance/info`);

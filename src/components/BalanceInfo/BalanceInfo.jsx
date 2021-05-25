@@ -25,14 +25,29 @@ const BalanceInfo = ({ setCurrentId }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const history = useHistory();
-  const [showOpenPositions, setShowOpenPositions] = useState(false)
+  const [showOpenPositions, setShowOpenPositions] = useState(false);
+  const [balanceOfCoins, setBalanceOfCoins] = useState([]);
+  const [balance, setBalance] = useState(0);
+
+  useEffect(() => {
+    setBalance((state) => {
+      if(balanceOfCoins.length === 0) {
+        return 0;
+      } 
+      let balance = balanceOfCoins.reduce((prev, current) => {
+        return prev + current
+      });
+      return balance
+    })
+  }, [balanceOfCoins]);
+
 
   // Balance info calculations
-  const currentBalance = (userinfo.baseCapital * userinfo.totalGain).toFixed(2);
+  const currentBalance = balance.toFixed(2);
   const gainBalance = (currentBalance - userinfo.baseCapital).toFixed(2);
   const gainPercent = ((gainBalance / userinfo.baseCapital) * 100).toFixed(2);
-  const dayChangeBalance = ((userinfo.baseCapital * userinfo.totalGain) * userinfo.dayChange).toFixed(2);
-  const dayChangePercent = (userinfo.dayChange * 100).toFixed(2);
+  // const dayChangeBalance = ((userinfo.baseCapital * userinfo.totalGain) * userinfo.dayChange).toFixed(2);
+  // const dayChangePercent = (userinfo.dayChange * 100).toFixed(2);
   // ----------------------
   
   useEffect(() => {
@@ -65,7 +80,7 @@ const BalanceInfo = ({ setCurrentId }) => {
           <InfoSquare title="Base capital:" info={`${usdFormatter.format(userinfo.baseCapital)}`} />
           <InfoSquare title="Gain / loss balance:" info={`${usdFormatter.format(gainBalance)}`} />
           <InfoSquare title="Current balance:" info={`${usdFormatter.format(currentBalance)}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
-          <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} />
+          {/* <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} /> */}
         </InfoSquaresWrapper>
 
         <Typography variant="h5" className={classes.title}>
@@ -98,7 +113,7 @@ const BalanceInfo = ({ setCurrentId }) => {
         
         <Switch>
           <Route path="/open-positions">
-            <OpenPositions setCurrentId={setCurrentId} />
+            <OpenPositions setCurrentId={setCurrentId} setBalanceOfCoins={setBalanceOfCoins}/>
           </Route>
 
           <Route path="/portfolio-balance">
