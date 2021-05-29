@@ -11,25 +11,23 @@ const useStyles = makeStyles(() => ({
   }, 
   primaryButton: {
     backgroundImage: "linear-gradient(90deg, rgba(17,153,142,1) 0%, rgba(56,239,125,1) 100%)",
-    textTransform: "lowercase",
+    textTransform: "none",
     margin: "30px 10px",
     borderRadius: "20px",
     color: "white",
     fontSize: "1em",
-    width: "75px"
   },
   secondaryButton: {
-    textTransform: "lowercase",
+    textTransform: "none",
     color: "rgba(17,153,142,1)",
     margin: "30px 10px",
     borderRadius: "20px",
     borderColor: "rgba(17,153,142,1)",
     fontSize: "1em",
-    width: "75px"
   }, 
   errorMessage: {
     color: "red",
-    fontSize: "0.8rem"
+    fontSize: "0.8rem",
   }
 }));
 
