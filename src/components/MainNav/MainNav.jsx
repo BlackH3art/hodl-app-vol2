@@ -22,9 +22,11 @@ const MainNav = () => {
       <AppBar position="relative" className={classes.myNav}>
         <div className={classes.navigation}>
 
-          <div className={classes.logoBox}>
-            <img className={classes.logo} src={logo} alt="hoDl!"/>
-          </div>
+          <Link to="/">
+            <div className={classes.logoBox}>
+              <img className={classes.logo} src={logo} alt="hoDl!"/>
+            </div>
+          </Link>
 
           <Toolbar className={classes.loginBox}>
             {user ? (

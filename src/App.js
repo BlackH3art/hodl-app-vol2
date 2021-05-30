@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import useStyles from './app.styles';
 import MainNav from './components/MainNav/MainNav';
-import BalanceInfo from './components/BalanceInfo/BalanceInfo';
-import AddCoinForm from './components/AddCoinForm/AddCoinForm';
+import HomePage from './components/HomePage/HomePage';
+import AuthForm from './components/AuthForm/AuthForm';
+import Application from './components/Application/Application';
 import Footer from './components/Footer/Footer';
 
 const App = () => {
 
-  const classes = useStyles();
-  const [currentId, setCurrentId] = useState(null)
 
   return ( 
     <>
       <Router>
-        <div className={classes.wholeAppContainer}>
-          <MainNav />
-          
-          <AddCoinForm currentId={currentId} setCurrentId={setCurrentId} />
-          <BalanceInfo setCurrentId={setCurrentId} />
+        <MainNav />
 
-        </div>
+        <Switch>
+          <Route path="/" component={HomePage} exact />
+          <Route path="/auth" component={AuthForm} exact />
+          <Route path="/application" component={Application} />
+        </Switch>
         
         <Footer />
       </Router>

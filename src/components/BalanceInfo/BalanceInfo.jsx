@@ -64,7 +64,7 @@ const BalanceInfo = ({ setCurrentId }) => {
   }, [dispatch, tickersToFetchPrices])
 
   const goBack = () => {
-    if(location.pathname === "/transaction-history") {
+    if(location.pathname === "/application/transaction-history") {
       history.goBack()
     }
   }
@@ -84,25 +84,25 @@ const BalanceInfo = ({ setCurrentId }) => {
         </InfoSquaresWrapper>
 
         <Typography variant="h5" className={classes.title}>
-          {location.pathname === "/transaction-history" ? "History" : !showOpenPositions ? 'Open positions' : 'Portfolio'}
+          {location.pathname === "/application/transaction-history" ? "History" : !showOpenPositions ? 'Open positions' : 'Portfolio'}
           <div className={classes.componentsNavigations}>
             {showOpenPositions ? (
-              <Link to='/open-positions'>
+              <Link to='/application/open-positions'>
                 <Button className={classes.routeButton} onClick={() => setShowOpenPositions(false)}>
                   [ Open positions ]
                 </Button>
               </Link>
             ) : (
-              <Link to='/portfolio-balance'>
+              <Link to='/application/portfolio-balance'>
                 <Button className={classes.routeButton} onClick={() => setShowOpenPositions(true)}>
                   [ Portfolio ]
                 </Button>
               </Link>
             )}      
 
-            <Link to='/transaction-history'>
+            <Link to='/application/transaction-history'>
               <Button className={`${classes.routeButton} ${classes.historyButton}`} onClick={goBack} >
-                {location.pathname === "/transaction-history" ? "Go back" : "History"}
+                {location.pathname === "/application/transaction-history" ? "Go back" : "History"}
               </Button>
             </Link>
           </div>
@@ -112,15 +112,15 @@ const BalanceInfo = ({ setCurrentId }) => {
           
         
         <Switch>
-          <Route path="/open-positions">
+          <Route path="/application/open-positions">
             <OpenPositions setCurrentId={setCurrentId} setBalanceOfCoins={setBalanceOfCoins}/>
           </Route>
 
-          <Route path="/portfolio-balance">
+          <Route path="/application/portfolio-balance">
             <CoinList />
           </Route>
 
-          <Route path="/transaction-history">
+          <Route path="/application/transaction-history">
             <HistoryTransaction />
           </Route>
         </Switch>

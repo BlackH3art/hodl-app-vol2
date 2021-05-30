@@ -5,7 +5,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
-    margin: "30px 0",
+    margin: "0 0 30px",
     minWidth: 'calc(100%)',
     maxWidth: 300,
   }, 
@@ -28,6 +28,9 @@ const useStyles = makeStyles(() => ({
   errorMessage: {
     color: "red",
     fontSize: "0.8rem",
+  }, 
+  title: {
+    marginTop: "20px"
   }
 }));
 

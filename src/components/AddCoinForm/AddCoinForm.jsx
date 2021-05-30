@@ -23,13 +23,13 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
     coin: "",
     quantity: "",
     price: ""
-  })
+  });
 
   const transaction = useSelector((state) => currentId ? state.coinReducer.find((transaction) => transaction._id === currentId ) : null );
 
   useEffect(() => {
     if(transaction) return setCoinData(transaction);
-  }, [transaction])
+  }, [transaction]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -172,7 +172,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
           coin: "There's no such coin",
           quantity: "",
           price: ""
-        })
+        });
 
         dispatch({
           type: NO_SUCH_COIN_IN_CMC,
@@ -208,7 +208,7 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
       <Container component="div">
         <FormControl fullWidth className={classes.transactionForm} autoComplete="off" noValidate>
           
-          <Typography variant="h6">
+          <Typography className={classes.title} variant="h6">
             {currentId ? 'Edit' : 'Buy'} transaction
           </Typography>
 
