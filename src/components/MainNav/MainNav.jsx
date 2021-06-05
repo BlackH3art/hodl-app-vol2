@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { AppBar, Avatar, Toolbar, Button, Typography } from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { LOGOUT } from '../../redux.actionTypes/actionTypes';
 
 import logo from '../../images/logo-rectangle.png';
 import useStyles from './mainNav.styles';
@@ -13,8 +16,29 @@ const MainNav = () => {
 
   const classes = useStyles();
   const buttonClasses = useButtonStyles();
+  const dispatch = useDispatch(); 
+  const history = useHistory();
+  const location = useLocation();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
-  const user = null;
+  useEffect(() => {
+    const token = user?.token
+
+    // jwt
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+
+  }, [location]);
+
+  const logout = () => {
+    dispatch({
+      type: LOGOUT,
+    });
+
+    history.push('/');
+    setUser(null);
+  };
+
 
   return ( 
     <>
@@ -37,10 +61,10 @@ const MainNav = () => {
                 </Avatar>
 
                 <Typography>
-                  isthismymail@o2.pl
+                  {user.result.data.email}
                 </Typography>
                 
-                <Button variant="outlined" className={`${buttonClasses.secondaryButton} ${classes.signOutButton}`} size="small"> Sign Out </Button>
+                <Button variant="outlined" className={`${buttonClasses.secondaryButton} ${classes.signOutButton}`} size="small" onClick={logout} > Sign Out </Button>
               </div>
             ) : (
               <Button component={Link} to="/auth" variant="contained" className={`${buttonClasses.primaryButton} ${classes.signInButton}`} size="small" type="submit"> Sign In </Button>

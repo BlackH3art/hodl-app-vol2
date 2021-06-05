@@ -1,22 +1,36 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000';
+const API = axios.create({ baseURL: 'http://localhost:5000'});
 
-export const fetchPortfolio = () => axios.get(`${url}/portfolio`);
-export const fetchPortfolioAverage = () => axios.get(`${url}/portfolio/average`);
-export const addTransaction = (newTransaction) => axios.post(`${url}/portfolio`, newTransaction);
-export const editTransaction = (id, editedTransaction) => axios.patch(`${url}/portfolio/${id}`, editedTransaction);
-export const deleteTransaction = (id) => axios.delete(`${url}/portfolio/${id}`);
-export const sellTransaction = (id, sellingTransaction) => axios.patch(`${url}/portfolio/sell/${id}`, sellingTransaction);
+API.interceptors.request.use((req) => {
+  const user = localStorage.getItem("profile");
+
+  if(user) {
+    req.headers.authorization = `Bearer ${JSON.parse(user.token)}`;
+  };
+
+  return req;
+});
+
+export const fetchPortfolio = () => API.get(`/portfolio`);
+export const fetchPortfolioAverage = () => API.get(`/portfolio/average`);
+export const addTransaction = (newTransaction) => API.post(`/portfolio`, newTransaction);
+export const editTransaction = (id, editedTransaction) => API.patch(`/portfolio/${id}`, editedTransaction);
+export const deleteTransaction = (id) => API.delete(`/portfolio/${id}`);
+export const sellTransaction = (id, sellingTransaction) => API.patch(`/portfolio/sell/${id}`, sellingTransaction);
 
 
-export const fetchCoinData = (ticker) => axios.get(`${url}/cmcdata/${ticker}`);
-export const fetchCoinPrice = (ticker) => axios.get(`${url}/cmcdata/prices/${ticker}`);
-export const isThereSuchCoin = (ticker) => axios.get(`${url}/cmcdata/check/${ticker}`);
+export const fetchCoinData = (ticker) => API.get(`/cmcdata/${ticker}`);
+export const fetchCoinPrice = (ticker) => API.get(`/cmcdata/prices/${ticker}`);
+export const isThereSuchCoin = (ticker) => API.get(`/cmcdata/check/${ticker}`);
 
 
-export const fetchHistoryItems = () => axios.get(`${url}/history`);
-export const fetchHistoryItemsDetails = (tickers) => axios.get(`${url}/history/coins-datails/${tickers}`);
+export const fetchHistoryItems = () => API.get(`/history`);
+export const fetchHistoryItemsDetails = (tickers) => API.get(`/history/coins-datails/${tickers}`);
 
 
-export const fetchBalanceInfo = () => axios.get(`${url}/balance/info`);
+export const fetchBalanceInfo = () => API.get(`/balance/info`);
+
+
+export const signIn = (formdata) => API.post('/user/sign-in', formdata);
+export const signUp = (formdata) => API.post('/user/sign-up', formdata);

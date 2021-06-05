@@ -6,6 +6,7 @@ import historyReducer from './historyReducer';
 import portfolioAverageReducer from './portfolioAverageReducer';
 import historyItemsDetailsReducer from './historyItemsDetailsReducer';
 import errorReducer from './errorReducer';
+import authReducer from './authReducer';
 
 export default combineReducers({
   coinReducer,
@@ -13,5 +14,6 @@ export default combineReducers({
   historyReducer,
   portfolioAverageReducer,
   historyItemsDetailsReducer,
-  errorReducer
+  errorReducer,
+  authReducer
 });
