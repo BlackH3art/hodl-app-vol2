@@ -10,7 +10,7 @@ export const signIn = (loginData, history) => async (dispatch) => {
       payload: data
     });
 
-    history.push('/');
+    history.push('/application/open-positions');
 
   } catch (error) {
     console.log(error);
@@ -27,7 +27,7 @@ export const signUp = (loginData, history) => async (dispatch) => {
       payload: data
     });
 
-    history.push('/');
+    history.push('/application/open-positions');
     
   } catch (error) {
     console.log(error);

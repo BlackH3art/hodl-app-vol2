@@ -22,12 +22,12 @@ const Footer = () => {
     <>
       <footer className={classes.footer}>
         <div className={classes.iconsContainer}>
-          <a className={classes.link} href="https://github.com/BlackH3art/hodl-app-vol2" rel="noreferrer" target="_blank" > <GitHubIcon color="white" /> </a>
+          <a className={classes.link} href="https://github.com/BlackH3art/hodl-app-vol2" rel="noreferrer" target="_blank" > <GitHubIcon /> </a>
           <div className={classes.infoContainer}>
             <p>If you want support this project: </p>
             <div className={classes.headerInputContainer}>
               <label className={classes.bitcoinLabel}> <img className={classes.coinLogo} src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png" alt="BTC"/> </label> 
-              <input className={classes.myInput} id="myinput" type="text" value={"asdfasdfasdfasdf"}/> 
+              <input className={classes.myInput} id="myinput" type="text" value={"asdfasdfasdfasdf"} onChange={() => null} /> 
               <button onClick={handleCopyBTC} className="btn btn-outline-light"> <FileCopyIcon /> </button>
             </div>
           </div>
