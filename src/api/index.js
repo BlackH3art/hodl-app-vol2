@@ -8,6 +8,7 @@ API.interceptors.request.use((req) => {
   if(user) {
     let parsedUser = JSON.parse(user);
     req.headers.authorization = `Bearer ${parsedUser.token}`;
+    req.headers['X-USER-ID'] = parsedUser.result._id
   };
 
   return req;

@@ -3,6 +3,7 @@ import { Container, Typography, Table, TableHead, TableRow, TableCell } from '@m
 
 import useStyles from './historyTransaction.styles';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { getHistoryItemsDetails } from '../../../redux.actions/historyActions';
 
@@ -12,14 +13,20 @@ const HistoryTransaction = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { ticker } = useParams();
   const historyItems = useSelector((state) => state.historyReducer);
 
   const historyTickersToFetch = historyItems.map(item => item.ticker.toUpperCase());
-  
+
+  let historyItemsToDisplay = historyItems;
+
+  if(ticker) {
+    historyItemsToDisplay = historyItems.filter((item) => item.ticker === ticker.toLowerCase())
+  }
+
   useEffect(() => {
     dispatch(getHistoryItemsDetails(historyTickersToFetch));
-  })
-
+  });
 
   return ( 
     <>
@@ -37,7 +44,7 @@ const HistoryTransaction = () => {
               <TableCell align="right"><Typography className={classes.tableHead}> Gain </Typography></TableCell>
             </TableRow>
           </TableHead>
-          {historyItems.map((item, index) => (
+          {historyItemsToDisplay.map((item, index) => (
             <HistoryItemRow 
               key={index}
               index={index}

@@ -30,8 +30,6 @@ const AuthForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(loginData);
-
     if(isSignedUp) {
       dispatch(signUp(loginData, history));
     } else {

@@ -29,6 +29,9 @@ const BalanceInfo = ({ setCurrentId }) => {
   const [balanceOfCoins, setBalanceOfCoins] = useState([]);
   const [balance, setBalance] = useState(0);
 
+  const user = JSON.parse(localStorage.getItem('profile'));
+
+
   useEffect(() => {
     setBalance((state) => {
       if(balanceOfCoins.length === 0) {
@@ -61,13 +64,14 @@ const BalanceInfo = ({ setCurrentId }) => {
 
   useEffect(() => {
     dispatch(fetchPricesCoinData(tickersToFetchPrices.toString()));
-  }, [dispatch, tickersToFetchPrices])
+  }, [dispatch, tickersToFetchPrices]);
+
 
   const goBack = () => {
-    if(location.pathname === "/application/transaction-history") {
+    if(location.pathname === "/application/history" || location.pathname.startsWith("/application/transaction-history")) {
       history.goBack()
-    }
-  }
+    };
+  };
 
   return ( 
     <>
@@ -84,7 +88,11 @@ const BalanceInfo = ({ setCurrentId }) => {
         </InfoSquaresWrapper>
 
         <Typography variant="h5" className={classes.title}>
-          {location.pathname === "/application/transaction-history" ? "History" : !showOpenPositions ? 'Open positions' : 'Portfolio'}
+          {location.pathname === "/application/history" ? "History" : ""}
+          {location.pathname === "/application/open-positions" ? "Open positions" : ""}
+          {location.pathname === "/application/portfolio-balance" ? "Portfolio" : ""}
+          {location.pathname.startsWith("/application/transaction-history")  ? "Coin history" : ""}
+
           <div className={classes.componentsNavigations}>
             {showOpenPositions ? (
               <Link to='/application/open-positions'>
@@ -100,9 +108,9 @@ const BalanceInfo = ({ setCurrentId }) => {
               </Link>
             )}      
 
-            <Link to='/application/transaction-history'>
+            <Link to='/application/history'>
               <Button className={`${classes.routeButton} ${classes.historyButton}`} onClick={goBack} >
-                {location.pathname === "/application/transaction-history" ? "Go back" : "History"}
+                {location.pathname === "/application/history" || location.pathname.startsWith("/application/transaction-history") ? "Go back" : "History"}
               </Button>
             </Link>
           </div>
@@ -120,7 +128,11 @@ const BalanceInfo = ({ setCurrentId }) => {
             <CoinList />
           </Route>
 
-          <Route path="/application/transaction-history">
+          <Route path="/application/history">
+            <HistoryTransaction />
+          </Route>
+
+          <Route path="/application/transaction-history/:ticker">
             <HistoryTransaction />
           </Route>
         </Switch>

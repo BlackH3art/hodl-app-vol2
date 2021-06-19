@@ -13,6 +13,7 @@ import { setProfitLossSign, usdFormatter, timeFormatter, cryptoAmountFormatter }
 // hooks
 import useStyles from '../openPositions.styles';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // icons
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -28,6 +29,7 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
   
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchCoinDataFromCMC(ticker.toUpperCase()));
@@ -102,7 +104,7 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
             <button className={classes.actionButtons} onClick={() => setCurrentId(id)}>
               <EditOutlinedIcon />
             </button>
-            <button className={classes.actionButtons}>
+            <button className={classes.actionButtons} onClick={() => history.push(`/application/transaction-history/${ticker}`)} >
               <HistoryOutlinedIcon />
             </button>
             <button className={classes.actionButtons} onClick={() => dispatch(deleteTransaction(id))}>
