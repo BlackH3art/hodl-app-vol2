@@ -35,6 +35,9 @@ const useStyles = makeStyles(() => ({
   avatarIcon: {
     marginRight: "15px",
     backgroundImage: "linear-gradient(90deg, rgba(17,153,142,1) 0%, rgba(56,239,125,1) 100%)",
+  },
+  settingsButton: {
+    color: "white"
   }
 
 }))

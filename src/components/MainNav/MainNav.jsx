@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Avatar, Toolbar, Button, Typography } from '@material-ui/core';
+import SettingsMenu from './SettingsMenu/SettingsMenu';
 
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import decode from 'jwt-decode';
@@ -12,6 +13,7 @@ import useStyles from './mainNav.styles';
 import useButtonStyles from '../AddCoinForm/addCoinForm.styles';
 
 import PersonIcon from '@material-ui/icons/Person';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const MainNav = () => {
 
@@ -21,6 +23,7 @@ const MainNav = () => {
   const history = useHistory();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const [openSettings, setOpenSettings] = useState(false);
 
   useEffect(() => {
     const token = user?.token
@@ -70,6 +73,14 @@ const MainNav = () => {
                 <Typography>
                   {user.result.data.email}
                 </Typography>
+
+                <Button className={classes.settingsButton} onClick={() => setOpenSettings(!openSettings)}>
+                  <SettingsIcon />
+                </Button>
+
+                {openSettings && (
+                  <SettingsMenu />
+                )}
                 
                 <Button variant="outlined" className={`${buttonClasses.secondaryButton} ${classes.signOutButton}`} size="small" onClick={logout} > Sign Out </Button>
               </div>

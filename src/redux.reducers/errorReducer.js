@@ -7,7 +7,6 @@ export default function errorReducer(state = {}, action) {
       return action.payload;
 
     case UNKNOWN_ERROR:
-      console.log('w reducerze UKNNOWN error')
       return action.payload;
 
     case CLEAR_ERRORS: 
