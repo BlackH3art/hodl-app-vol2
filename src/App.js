@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
+import { AppContextProvider } from './Context/AppContext';
+
 import MainNav from './components/MainNav/MainNav';
 import HomePage from './components/HomePage/HomePage';
 import AuthForm from './components/AuthForm/AuthForm';
@@ -12,17 +14,19 @@ const App = () => {
 
   return ( 
     <>
-      <Router>
-        <MainNav />
+      <AppContextProvider>
+        <Router>
+          <MainNav />
 
-        <Switch>
-          <Route path="/" component={HomePage} exact />
-          <Route path="/auth" component={AuthForm} exact />
-          <Route path="/application" component={Application} />
-        </Switch>
-        
-        <Footer />
-      </Router>
+          <Switch>
+            <Route path="/" component={HomePage} exact />
+            <Route path="/auth" component={AuthForm} exact />
+            <Route path="/application" component={Application} />
+          </Switch>
+          
+          <Footer />
+        </Router>
+      </AppContextProvider>
     </>
    );
 }

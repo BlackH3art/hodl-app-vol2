@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AppBar, Avatar, Toolbar, Button, Typography } from '@material-ui/core';
 import SettingsMenu from './SettingsMenu/SettingsMenu';
 
@@ -15,6 +15,8 @@ import useButtonStyles from '../AddCoinForm/addCoinForm.styles';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import { AppContext } from '../../Context/AppContext';
+
 const MainNav = () => {
 
   const classes = useStyles();
@@ -23,7 +25,8 @@ const MainNav = () => {
   const history = useHistory();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const [openSettings, setOpenSettings] = useState(false);
+  const [appState, setAppState] = useContext(AppContext);
+
 
   useEffect(() => {
     const token = user?.token
@@ -74,11 +77,11 @@ const MainNav = () => {
                   {user.result.data.email}
                 </Typography>
 
-                <Button className={classes.settingsButton} onClick={() => setOpenSettings(!openSettings)}>
+                <Button className={classes.settingsButton} onClick={() => setAppState((prevState) => ({ ...prevState, openSettings: !prevState.openSettings}))}>
                   <SettingsIcon />
                 </Button>
 
-                {openSettings && (
+                {appState.openSettings && (
                   <SettingsMenu />
                 )}
                 
