@@ -149,13 +149,6 @@ const AddTransactionForm = ({ currentId, setCurrentId }) => {
               ...coinData,
               openDate: new Date(),
             }));
-
-            // dodaj transakcję konkretnemu użytkownikowi
-
-            // dispatch(addUserTransaction({
-            //   ...coinData,
-            //   openDate: new Date(),
-            // }));
     
             clear();
             break;
