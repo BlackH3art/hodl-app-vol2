@@ -5,7 +5,6 @@ import { Switch, Route, Link } from 'react-router-dom';
 import { getCoins, getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
 import { getHistoryItems } from '../../redux.actions/historyActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
-import { userinfo } from '../../helpers/pseudoData';
 
 import useStyles from './balanceInfo.styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,8 +28,7 @@ const BalanceInfo = ({ setCurrentId }) => {
   const [balanceOfCoins, setBalanceOfCoins] = useState([]);
   const [balance, setBalance] = useState(0);
 
-  const user = JSON.parse(localStorage.getItem('profile'));
-
+  const { result } = JSON.parse(localStorage.getItem('profile'));
 
   useEffect(() => {
     setBalance((state) => {
@@ -47,8 +45,8 @@ const BalanceInfo = ({ setCurrentId }) => {
 
   // Balance info calculations
   const currentBalance = balance.toFixed(2);
-  const gainBalance = (currentBalance - userinfo.baseCapital).toFixed(2);
-  const gainPercent = ((gainBalance / userinfo.baseCapital) * 100).toFixed(2);
+  const gainBalance = (currentBalance - result?.invested).toFixed(2);
+  const gainPercent = ((gainBalance / result?.invested) * 100).toFixed(2);
   // const dayChangeBalance = ((userinfo.baseCapital * userinfo.totalGain) * userinfo.dayChange).toFixed(2);
   // const dayChangePercent = (userinfo.dayChange * 100).toFixed(2);
   // ----------------------
@@ -81,7 +79,7 @@ const BalanceInfo = ({ setCurrentId }) => {
         </Typography>
 
         <InfoSquaresWrapper>
-          <InfoSquare title="Base capital:" info={`${usdFormatter.format(userinfo.baseCapital)}`} />
+          <InfoSquare title="Base capital:" info={`${usdFormatter.format(result?.invested)}`} />
           <InfoSquare title="Gain / loss balance:" info={`${usdFormatter.format(gainBalance)}`} />
           <InfoSquare title="Current balance:" info={`${usdFormatter.format(currentBalance)}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
           {/* <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} /> */}

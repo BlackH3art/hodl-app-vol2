@@ -74,7 +74,7 @@ const MainNav = () => {
                 </Avatar>
 
                 <Typography>
-                  {user.result.data.email}
+                  {user.result?.data.email}
                 </Typography>
 
                 <Button className={classes.settingsButton} onClick={() => setAppState((prevState) => ({ ...prevState, openSettings: !prevState.openSettings}))}>

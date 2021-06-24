@@ -36,3 +36,4 @@ export const fetchBalanceInfo = () => API.get(`/balance/info`);
 
 export const signIn = (formdata) => API.post('/user/sign-in', formdata);
 export const signUp = (formdata) => API.post('/user/sign-up', formdata);
+export const investedUpdate = (investedData) => API.patch('/user/invested', investedData);

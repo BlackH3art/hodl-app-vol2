@@ -6,6 +6,8 @@ import useStyles from './investedForm.styles';
 
 import { AppContext } from '../../Context/AppContext';
 
+import { investedUpdate } from '../../api/index';
+
 
 const InvestedForm = () => {
 
@@ -14,18 +16,36 @@ const InvestedForm = () => {
   const [appState, setAppState] = useContext(AppContext);
 
 
-  const handleChange =(e) => {
+  const handleChange = (e) => {
     setInvestedData({ invested: e.target.value});
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    
+    try {
+      
+      e.preventDefault();
+  
+      const response = await investedUpdate(investedData);
 
-    setAppState({
-      ...appState,
-      openInvestedForm: false
-    })
+      if(response.status === 200) {
 
+        let currentUser = localStorage.getItem('profile');
+
+        localStorage.setItem('profile', JSON.stringify({
+          ...currentUser,
+          result: response.data.updatedUser
+        }));
+
+        setAppState({
+          ...appState,
+          openInvestedForm: false
+        });
+      };
+
+    } catch (error) {
+      console.log(error);
+    };
   };
 
   const clear = () => {
