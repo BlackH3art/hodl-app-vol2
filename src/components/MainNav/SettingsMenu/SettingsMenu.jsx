@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Button, Container, Typography, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import useStyles from './settingsMenu.styles';
 
@@ -18,8 +19,15 @@ const SettingsMenu = () => {
     setAppState({
       openSettings: !appState.openSettings,
       openInvestedForm: !appState.openInvestedForm
-    })
-  }
+    });
+  };
+
+  const handleDelete = () => {
+    setAppState({
+      ...appState,
+      openSettings: false,
+    });
+  };
 
   return ( 
     <>
@@ -41,7 +49,7 @@ const SettingsMenu = () => {
           <Divider/>
 
           <ListItem>
-            <Button className={`${classes.listItem} ${classes.dangerAction}`}>
+            <Button component={Link} to="/user/delete-acount" className={`${classes.listItem} ${classes.dangerAction}`} onClick={handleDelete}>
               <ListItemIcon>
                 <DeleteOutlineOutlinedIcon className={classes.icon} />
               </ListItemIcon>

@@ -8,6 +8,7 @@ import HomePage from './components/HomePage/HomePage';
 import AuthForm from './components/AuthForm/AuthForm';
 import Application from './components/Application/Application';
 import Footer from './components/Footer/Footer';
+import DeleteUser from './components/DeleteUser/DeleteUser';
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/" component={HomePage} exact />
             <Route path="/auth" component={AuthForm} exact />
             <Route path="/application" component={Application} />
+            <Route path="/user/delete-acount" component={DeleteUser} />
           </Switch>
           
           <Footer />
@@ -49,3 +51,4 @@ export default App;
 // 10. przerobić store errorów na obiekt --------- rozwiązane
 // 11. zrobić quantity i price na wymagane pola i wyświetlać błędy jak są puste --------- rozwiązane
 // 12. balanceInfo setState kumuluje się cały czas przy rerenderze komponentu bez usuwania poprzedniej wartości
+// 13. czyścić reduxowy store po wylogowaniu, usunięciu użytkownika
