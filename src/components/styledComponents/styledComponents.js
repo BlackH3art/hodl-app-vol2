@@ -20,6 +20,6 @@ export const DoubleRowCellContainer = styled.div`
 export const DeleteButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  width: 80%;
+  justify-content: center;
+  width: 100%;
 `;

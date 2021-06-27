@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Paper, Typography, Button, Grid, FormLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
+import { Container, Paper, Typography, Button, FormControl, FormLabel, FormHelperText, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { DeleteButtonWrapper } from '../styledComponents/styledComponents';
 
 import { deleteUser } from '../../api/index';
@@ -14,9 +14,12 @@ const DeleteUser = () => {
   const [deleteFormData, setDeleteFormData] = useState({ reason: "" });
   const [reason, setReason] = useState('');
   const [message, setMessage] = useState('');
+  const [error, setError] = useState({ error: false, message: ""});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!reason) return setError({ error: true, message: "Please, choose one of these reasons."})
     
     setDeleteFormData({
       reason: reason
@@ -87,16 +90,20 @@ const DeleteUser = () => {
                   Are you sure you want to delete your account?
                 </Typography>
 
-                <Typography>
+                <Typography className={classes.noteText}>
                   Mind that if you confirm you want to delete your account, we won't be able to restore your account.
                 </Typography>
 
                 <form className={classes.deleteReasonForm} onSubmit={handleSubmit}>
 
-                  <Grid container>
+                  
+                  <FormControl className={classes.formControl} component="fieldset" error={error}>
 
-                    <FormLabel component="legend">Why you want to delete your account? </FormLabel>
-                    <RadioGroup aria-label="reason" name="reason" value={reason} onChange={handleChange}>
+                    <FormLabel className={classes.formLabel} component="legend">Why you want to delete your account? </FormLabel>
+
+                    <FormHelperText> {error.message} </FormHelperText>
+
+                    <RadioGroup aria-label="reason" defaultValue="Testing" name="reason" value={reason} onChange={handleChange}>
                       <FormControlLabel
                         control={<Radio color="primary" />}
                         value="Recruiter"
@@ -113,7 +120,9 @@ const DeleteUser = () => {
                         label="I don't like it"
                       />
                     </RadioGroup>
-                  </Grid>
+
+                  </FormControl>
+                  
 
                   <DeleteButtonWrapper>
                     <Button className={classes.btn} variant="outlined" color="secondary" type="submit"> Delete </Button>
