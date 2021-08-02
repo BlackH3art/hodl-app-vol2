@@ -25,9 +25,8 @@ const Footer = () => {
     <>
       <footer className={classes.footer}>
         <div className={classes.iconsContainer}>
-          <a className={classes.link} href="https://github.com/BlackH3art/hodl-app-vol2" rel="noreferrer" target="_blank" > <GitHubIcon /> </a>
           <div className={classes.infoContainer}>
-            <p className={classes.message}>If you want support this project: </p>
+            <p className={classes.message}>If you want to support this project, you can send some love with Bitcoin :) : </p>
             <div className={classes.headerInputContainer}>
               <label className={classes.bitcoinLabel}> <img className={classes.coinLogo} src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png" alt="BTC"/> </label> 
 

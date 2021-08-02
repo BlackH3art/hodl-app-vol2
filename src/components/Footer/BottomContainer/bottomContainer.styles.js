@@ -10,6 +10,7 @@ const useStyles = makeStyles(() => ({
   },
   socialLink: {
     color: "white",
+    padding: ".2rem .2rem", 
     textDecoration: "none",
     transition: '.2s',
     '&:hover': {
