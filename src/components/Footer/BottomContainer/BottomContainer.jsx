@@ -23,6 +23,7 @@ const BottomContainer = () => {
 
         <div className={classes.linksContainer}>
           <Link to="regulamin" className={classes.link}> Regulamin </Link>
+          |
           <Link to="polityka-prywatnosci" className={classes.link}> Polityka prywatności </Link>
         </div>
         

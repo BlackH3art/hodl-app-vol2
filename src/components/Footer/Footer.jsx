@@ -1,6 +1,5 @@
 import React from 'react';
 
-import GitHubIcon from '@material-ui/icons/GitHub';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import useStyles from './footer.styles';
 

@@ -9,6 +9,7 @@ import AuthForm from './components/AuthForm/AuthForm';
 import Application from './components/Application/Application';
 import Footer from './components/Footer/Footer';
 import DeleteUser from './components/DeleteUser/DeleteUser';
+import Policy from './components/Policy/Policy';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/auth" component={AuthForm} exact />
             <Route path="/application" component={Application} />
             <Route path="/user/delete-acount" component={DeleteUser} />
+            <Route path="/polityka-prywatnosci" component={Policy} />
           </Switch>
           
           <Footer />
