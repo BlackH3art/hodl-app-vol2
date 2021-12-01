@@ -1,27 +1,35 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+
+import * as api from "../../../api"
 
 // components
 import OpenPositionRow from './OpenPositionRow/OpenPositionRow';
+import LoadingIndicator from '../../LoadingIndicator/LoadingIndicator';
 
 // hooks
 import useStyles from './openPositions.styles';
-import { useSelector, useDispatch } from 'react-redux';
-
-// actions
-import { getCoins } from '../../../redux.actions/coinActions';
+import { useSelector } from 'react-redux';
 
 
 const OpenPositions = ({ setCurrentId, setBalanceOfCoins }) => {
 
   const classes = useStyles();
-  const transactions = useSelector((state) => state.coinReducer);
   const coinsPriceData = useSelector((state) => state.coinDetailsReducer);
-  const dispatch = useDispatch();
+
+  const [transactions, setTransactions] = useState(null);
 
   useEffect(() => {
-    dispatch(getCoins());
-  },[dispatch]);
+
+    async function fetchTransactions() {
+      const { data } = await api.fetchPortfolio();
+
+      setTransactions(data);
+    }
+
+    fetchTransactions();
+
+  },[]);
 
 
   return ( 
@@ -42,24 +50,30 @@ const OpenPositions = ({ setCurrentId, setBalanceOfCoins }) => {
           </TableHead>
 
           <TableBody>
-            {transactions.map((transaction, index) => {
+            {transactions ? transactions.map((transaction, index) => {
 
-              let coinPrice = coinsPriceData.find((coin) => coin.symbol === transaction.ticker.toUpperCase())
+              let coinPrice = coinsPriceData.find((coin) => coin.symbol === transaction.ticker.toUpperCase());
 
               return (
-              <OpenPositionRow 
-                key={index}
-                index={index}
-                setCurrentId={setCurrentId}
-                quantity={transaction.quantity}
-                price={coinPrice?.price}
-                entryPrice={transaction.entryPrice}
-                date={transaction.openDate}
-                ticker={transaction.ticker.toUpperCase()}
-                id={transaction._id}
-                setBalanceOfCoins={setBalanceOfCoins}
-              />
-            )})}
+                <OpenPositionRow
+                  key={index}
+                  index={index}
+                  setCurrentId={setCurrentId}
+                  quantity={transaction.quantity}
+                  price={coinPrice?.price}
+                  entryPrice={transaction.entryPrice}
+                  date={transaction.openDate}
+                  ticker={transaction.ticker.toUpperCase()}
+                  id={transaction._id}
+                  setBalanceOfCoins={setBalanceOfCoins}
+                />
+            )}) : (
+              <TableRow>
+                <TableCell align="center" colSpan={8}>
+                  <LoadingIndicator />
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
 

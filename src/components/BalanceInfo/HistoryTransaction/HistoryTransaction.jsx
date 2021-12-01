@@ -1,27 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell } from '@material-ui/core';
 
 import useStyles from './historyTransaction.styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import * as api from '../../../api/index';
 import { getHistoryItemsDetails } from '../../../redux.actions/historyActions';
 
 import HistoryItemRow from './HistoryItemRow';
+import LoadingIndicator from '../../LoadingIndicator/LoadingIndicator';
 
 const HistoryTransaction = () => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
   const { ticker } = useParams();
-  const historyItems = useSelector((state) => state.historyReducer);
+  const [historyItemsFromDB, setHistoryItemsFromDB] = useState(null);
 
-  const historyTickersToFetch = historyItems.map(item => item.ticker.toUpperCase());
+  useEffect(() => {
 
-  let historyItemsToDisplay = historyItems;
+    async function fetchTransactionHistory() {
+
+      const { data } = await api.fetchHistoryItems();
+
+      setHistoryItemsFromDB(data);
+    } 
+
+    fetchTransactionHistory();
+  }, []);
+
+
+  const historyTickersToFetch = historyItemsFromDB?.map(item => item.ticker.toUpperCase());
+
+  let historyItemsToDisplay = historyItemsFromDB;
 
   if(ticker) {
-    historyItemsToDisplay = historyItems.filter((item) => item.ticker === ticker.toLowerCase())
+    historyItemsToDisplay = historyItemsFromDB?.filter((item) => item.ticker === ticker.toLowerCase())
   }
 
   useEffect(() => {
@@ -44,7 +59,7 @@ const HistoryTransaction = () => {
               <TableCell align="right"><Typography className={classes.tableHead}> Gain </Typography></TableCell>
             </TableRow>
           </TableHead>
-          {historyItemsToDisplay.map((item, index) => (
+          {historyItemsToDisplay ? historyItemsToDisplay.map((item, index) => (
             <HistoryItemRow 
               key={index}
               index={index}
@@ -59,7 +74,13 @@ const HistoryTransaction = () => {
               invested={item.invested}
               gain={item.gain}
             />
-          ))}
+          )) : (
+            <TableRow>
+              <TableCell align="center" colSpan={8}>
+                <LoadingIndicator />
+              </TableCell>
+            </TableRow>
+          )}
 
         </Table>
 

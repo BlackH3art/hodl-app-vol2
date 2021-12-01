@@ -1,28 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 // hooks
 import useStyles from './coinList.styles';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 // components 
 import CoinRow from './CoinRow';
+import LoadingIndicator from '../../LoadingIndicator/LoadingIndicator';
 
-// action 
-import { getPortfolioAverage } from '../../../redux.actions/coinActions';
+// api 
+import * as api from '../../../api/index';
 
 
 const CoinList = () => {
 
   const classes = useStyles();
-  const coins = useSelector((state) => state.portfolioAverageReducer);
+  const [coinsAverage, setCoinsAverage] = useState(null);
   const coinsPriceData = useSelector((state) => state.coinDetailsReducer);
-  const dispatch = useDispatch();
 
 
   useEffect(() => {
-    dispatch(getPortfolioAverage());
-  },[dispatch]);
+
+    async function fetchPortfolioAverage() {
+
+      const { data } = await api.fetchPortfolioAverage();
+
+      setCoinsAverage(data);
+    }
+
+    fetchPortfolioAverage();
+
+  }, []);
 
 
   return ( 
@@ -43,7 +52,7 @@ const CoinList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {coins.map((coin, index) => {
+            {coinsAverage ? coinsAverage.map((coin, index) => {
               
               let coinPrice = coinsPriceData.find((coinData) => coinData.symbol === coin._id.toUpperCase())
 
@@ -61,7 +70,14 @@ const CoinList = () => {
                 sevenDayChange={coinPrice?.change7d}
               />
                       
-            )})}
+              )}) : (
+                <TableRow>
+                  <TableCell align="center" colSpan={9}>
+                    <LoadingIndicator />
+                  </TableCell>
+                </TableRow>
+              )
+            }
           </TableBody>
         </Table>
 

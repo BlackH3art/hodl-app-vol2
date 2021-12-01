@@ -20,14 +20,20 @@ export const getHistoryItems = () => async (dispatch) => {
 
 export const getHistoryItemsDetails = (tickers) => async (dispatch) => {
   try {
-    const uniqTickers = filterTickersArrayToFetchDB(tickers).toString()
 
-    const { data } = await api.fetchHistoryItemsDetails(uniqTickers);
+    if(!tickers) {
+      return;
+    } else {
 
-    dispatch({
-      type: GET_HISTORY_ITEMS_DETAILS,
-      payload: data
-    });
+      const uniqTickers = filterTickersArrayToFetchDB(tickers).toString();
+  
+      const { data } = await api.fetchHistoryItemsDetails(uniqTickers);
+  
+      dispatch({
+        type: GET_HISTORY_ITEMS_DETAILS,
+        payload: data
+      });
+    }
     
   } catch (error) {
     console.log(error);

@@ -3,7 +3,6 @@ import { Container, Typography, Button } from '@material-ui/core';
 import { Switch, Route, Link } from 'react-router-dom';
 
 import { getCoins, getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
-import { getHistoryItems } from '../../redux.actions/historyActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
 
 import useStyles from './balanceInfo.styles';
@@ -52,9 +51,10 @@ const BalanceInfo = ({ setCurrentId }) => {
   // ----------------------
   
   useEffect(() => {
-    dispatch(getCoins());
+
+    // jakie są coiny w portfelu? Potrzebne do fetchowania ceny - wymyśleć coś lepszego.
     dispatch(getPortfolioAverage());
-    dispatch(getHistoryItems());
+
   },[dispatch]);
 
   const transactions = useSelector((state) => state.portfolioAverageReducer);

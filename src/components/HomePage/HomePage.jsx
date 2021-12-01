@@ -2,6 +2,7 @@ import useStyles from './homePage.styles';
 import { Button, Grid, Typography } from '@material-ui/core';
 
 import CryptoBubble from './CryptoBubble';
+import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 
 import laptop from '../../images/laptop.png';
 
@@ -40,6 +41,7 @@ const HomePage = () => {
 
             <Grid item>
               <img className={classes.img} src={laptop} alt="" />
+              <LoadingIndicator />
             </Grid>
 
           </Grid>
