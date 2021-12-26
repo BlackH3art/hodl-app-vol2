@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button } from '@material-ui/core';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
-import { getCoins, getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
+import { getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
 
 import useStyles from './balanceInfo.styles';
@@ -26,10 +26,10 @@ const BalanceInfo = ({ setCurrentId }) => {
   const [showOpenPositions, setShowOpenPositions] = useState(false);
   const [balanceOfCoins, setBalanceOfCoins] = useState([]);
   const [balance, setBalance] = useState(0);
-
-  const { result } = JSON.parse(localStorage.getItem('profile'));
+  const user = useSelector(state => state.authReducer.data)
 
   useEffect(() => {
+    //fix this
     setBalance((state) => {
       if(balanceOfCoins.length === 0) {
         return 0;
@@ -40,12 +40,12 @@ const BalanceInfo = ({ setCurrentId }) => {
       return balance
     })
   }, [balanceOfCoins]);
-
+  
 
   // Balance info calculations
   const currentBalance = balance.toFixed(2);
-  const gainBalance = (currentBalance - result?.invested).toFixed(2);
-  const gainPercent = ((gainBalance / result?.invested) * 100).toFixed(2);
+  const gainBalance = (currentBalance - user?.result.invested).toFixed(2);
+  const gainPercent = ((gainBalance / user?.result.invested) * 100).toFixed(2);
   // const dayChangeBalance = ((userinfo.baseCapital * userinfo.totalGain) * userinfo.dayChange).toFixed(2);
   // const dayChangePercent = (userinfo.dayChange * 100).toFixed(2);
   // ----------------------
@@ -79,7 +79,7 @@ const BalanceInfo = ({ setCurrentId }) => {
         </Typography>
 
         <InfoSquaresWrapper>
-          <InfoSquare title="Base capital:" info={`${usdFormatter.format(result?.invested)}`} />
+          <InfoSquare title="Base capital:" info={`${usdFormatter.format(user?.result.invested)}`} />
           <InfoSquare title="Gain / loss balance:" info={`${usdFormatter.format(gainBalance)}`} />
           <InfoSquare title="Current balance:" info={`${usdFormatter.format(currentBalance)}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
           {/* <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} /> */}
@@ -118,20 +118,24 @@ const BalanceInfo = ({ setCurrentId }) => {
           
         
         <Switch>
-          <Route path="/application/open-positions">
-            <OpenPositions setCurrentId={setCurrentId} setBalanceOfCoins={setBalanceOfCoins}/>
+          <Route path="/application/open-positions" render={() => (
+            user ? <OpenPositions setCurrentId={setCurrentId} setBalanceOfCoins={setBalanceOfCoins}/> : <Redirect to='/auth'/>
+          )}>
           </Route>
 
-          <Route path="/application/portfolio-balance">
-            <CoinList />
+          <Route path="/application/portfolio-balance" render={() => (
+            user ? <CoinList /> : <Redirect to='/auth'/>
+          )}>
           </Route>
 
-          <Route path="/application/history">
-            <HistoryTransaction />
+          <Route path="/application/history" render={() => (
+            user ? <HistoryTransaction /> : <Redirect to='/auth'/>
+          )}>
           </Route>
 
-          <Route path="/application/transaction-history/:ticker">
-            <HistoryTransaction />
+          <Route path="/application/transaction-history/:ticker" render={() => (
+            user ? <HistoryTransaction /> : <Redirect to='/auth'/>
+          )}>
           </Route>
         </Switch>
         

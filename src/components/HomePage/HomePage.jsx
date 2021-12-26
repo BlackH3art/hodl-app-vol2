@@ -2,9 +2,11 @@ import useStyles from './homePage.styles';
 import { Button, Grid, Typography } from '@material-ui/core';
 
 import CryptoBubble from './CryptoBubble';
-import LoadingIndicator from '../LoadingIndicator/LoadingIndicator';
 
 import laptop from '../../images/laptop.png';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const HomePage = () => {
 
@@ -24,6 +26,14 @@ const HomePage = () => {
     "https://s2.coinmarketcap.com/static/img/coins/64x64/1720.png",
     "https://s2.coinmarketcap.com/static/img/coins/64x64/2010.png",
   ];
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  },[])
+
+  // const { result } = JSON.parse(localStorage.getItem('profile'));
+
 
   return ( 
     <>
@@ -34,14 +44,16 @@ const HomePage = () => {
             <Grid item className={classes.marketingContainer}>
               <div>
                 <Typography className={classes.actionHeading} variant="h2">Śledź swoje portfolio</Typography>
-                <Typography variant="p">Łatwo zarządzają swoim kapitałem i pozycją na rynku kryptowalut</Typography>
+                <Typography>Łatwo zarządzają swoim kapitałem i pozycją na rynku kryptowalut</Typography>
               </div>
-              <Button className={classes.actionButton} variant="outlined" color="primary">App</Button>
+
+              <Link to={user ? '/application/open-positions' : '/auth'}>
+                <Button className={classes.actionButton} variant="outlined" color="primary">App</Button>
+              </Link>
             </Grid>
 
             <Grid item>
               <img className={classes.img} src={laptop} alt="" />
-              <LoadingIndicator />
             </Grid>
 
           </Grid>
