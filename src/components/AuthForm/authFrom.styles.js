@@ -32,7 +32,11 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "80vh",
     backgroundImage: "linear-gradient(90deg, rgba(17,153,142,0.65) 0%, rgba(17,153,142,0.35) 20%, rgba(56,239,125,0.30) 80%, rgba(56,239,125,0.55) 100%)",
 
-  }
+  },
+  errorMessage: {
+    color: "red",
+    fontSize: "0.8rem",
+  }, 
 }));
 
 export default useStyles;

@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center"
   },
   actionButton: {
+    textDecoration: "none",
     display: "block",
     fontSize: "1rem",
     fontWeight: 600,

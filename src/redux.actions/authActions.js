@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { AUTH } from '../redux.actionTypes/actionTypes';
+import { AUTH, WRONG_CREDENTIALS } from '../redux.actionTypes/actionTypes';
 
 export const signIn = (loginData, history) => async (dispatch) => {
   try {
@@ -13,7 +13,11 @@ export const signIn = (loginData, history) => async (dispatch) => {
     history.push('/application/open-positions');
 
   } catch (error) {
-    console.log(error);
+
+    dispatch({
+      type: WRONG_CREDENTIALS,
+      payload: { credentials: "Wrong credentials."}
+    })
     
   }
 }

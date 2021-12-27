@@ -17,6 +17,7 @@ export const NO_SUCH_COIN_IN_CMC = "NO_SUCH_COIN_IN_CMC";
 export const UNKNOWN_ERROR = "UNKNOWN_ERROR";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const FIELDS_ARE_REQUIRED = "FIELDS_ARE_REQUIRED";
+export const WRONG_CREDENTIALS = "WRONG_CREDENTIALS";
 
 // auth
 export const AUTH = "AUTH";

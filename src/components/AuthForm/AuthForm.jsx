@@ -6,10 +6,11 @@ import AuthInput from './AuthInput';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 import useStyles from './authFrom.styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { signIn, signUp } from '../../redux.actions/authActions';
+import { CLEAR_ERRORS } from '../../redux.actionTypes/actionTypes';
 
 const initial = {
   email: "",
@@ -26,9 +27,14 @@ const AuthForm = () => {
   const classes = useStyles(); 
   const dispatch = useDispatch();
   const history = useHistory();
+  const credentialsError = useSelector(state => state.errorReducer.credentials)
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    dispatch({
+      type: CLEAR_ERRORS,
+    });
 
     if(isSignedUp) {
       dispatch(signUp(loginData, history));
@@ -66,10 +72,16 @@ const AuthForm = () => {
 
             <Typography variant="h5"> {isSignedUp ? "Sign up" : "Sign in"} </Typography>
 
+            {credentialsError && 
+              <Typography className={classes.errorMessage}>
+                  {credentialsError}
+              </Typography>
+            }
+
             <form className={classes.form} onSubmit={handleSubmit}>
               <Grid container spacing={2}>
-                <AuthInput name="email" label="e-mail" type="email" handleChange={handleChange} autoFocus />
-                <AuthInput name="password" label="password" type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} handleChange={handleChange} />
+                <AuthInput name="email" label="e-mail" type="email" handleChange={handleChange} autoFocus error={credentialsError}/>
+                <AuthInput name="password" label="password" type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} handleChange={handleChange} error={credentialsError}/>
                 {isSignedUp && (
                   <>
                     <AuthInput name="confirmPassword" label="confirm password" type="password" handleChange={handleChange} />

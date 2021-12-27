@@ -1,4 +1,4 @@
-import { NO_SUCH_COIN_IN_CMC, UNKNOWN_ERROR, CLEAR_ERRORS, FIELDS_ARE_REQUIRED } from '../redux.actionTypes/actionTypes';
+import { NO_SUCH_COIN_IN_CMC, UNKNOWN_ERROR, CLEAR_ERRORS, FIELDS_ARE_REQUIRED, WRONG_CREDENTIALS } from '../redux.actionTypes/actionTypes';
 
 export default function errorReducer(state = {}, action) {
   switch (action.type) {
@@ -14,6 +14,9 @@ export default function errorReducer(state = {}, action) {
 
     case FIELDS_ARE_REQUIRED:
       return action.payload;
+
+    case WRONG_CREDENTIALS:
+      return action.payload
 
     default: 
       return state;
