@@ -3,7 +3,7 @@ import React from 'react';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import useStyles from './footer.styles';
 
-import { Input, InputAdornment, IconButton } from '@material-ui/core';
+import { Input, InputAdornment, IconButton, Typography } from '@material-ui/core';
 import BottomContainer from './BottomContainer/BottomContainer';
 
 const Footer = () => {
@@ -25,7 +25,7 @@ const Footer = () => {
       <footer className={classes.footer}>
         <div className={classes.iconsContainer}>
           <div className={classes.infoContainer}>
-            <p className={classes.message}>If you want to support this project, you can send some love with Bitcoin :) : </p>
+            <Typography className={classes.message}>If you want to support this project, you can send some love with Bitcoin :) </Typography>
             <div className={classes.headerInputContainer}>
               <label className={classes.bitcoinLabel}> <img className={classes.coinLogo} src="https://s2.coinmarketcap.com/static/img/coins/64x64/1.png" alt="BTC"/> </label> 
 

@@ -137,6 +137,8 @@ const BalanceInfo = ({ setCurrentId }) => {
             user ? <HistoryTransaction /> : <Redirect to='/auth'/>
           )}>
           </Route>
+
+          <Redirect to="/application/open-positions" />
         </Switch>
         
       </Container>

@@ -14,7 +14,11 @@ const useStyles = makeStyles(() => ({
     paddingTop: '15px'
   }, 
   message: {
-    padding: "8px 0"
+    padding: "8px 0",
+    "@media (max-width: 500px)": {
+      padding: "10px 10px",
+      
+    }
 
   },
   infoContainer: {
@@ -22,6 +26,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
+    textAlign: "center"
   },
   headerInputContainer: {
     display: "flex",
@@ -37,6 +42,9 @@ const useStyles = makeStyles(() => ({
     fontSize: "1rem",
     width: "400px",
     color: "#f8f9fa",
+    "@media (max-width: 5000px)": {
+      width: "300px"
+    },
   },
   coinLogo: {
     height: "28px"

@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => ({
   container: {
     minHeight: "100vh",
     backgroundColor: "white",
+    overflow: "hidden"
   },
   main: {
     display: "flex",
@@ -48,13 +49,12 @@ const useStyles = makeStyles((theme) => ({
   },
   waveRelativeContainer: {
     position: "relative",
-    overflow: "hidden"
   },
   svgWave: {
     display: "block"
   },
   lowerWave: {
-    backgroundColor: "#00FF3B"
+    backgroundColor: "#00FF3B",
   },
   upperWave: {
     backgroundColor: "#fff"

@@ -6,7 +6,10 @@ const useStyles = makeStyles(() => ({
     width: '80%',
     height: '40px',
     justifyContent: "space-between",
-    margin: "0 auto"
+    margin: "0 auto",
+    "@media (max-width: 500px)": {
+      width: "100%"
+    }
   },
   socialLink: {
     color: "white",
@@ -30,6 +33,9 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'space-around',
     padding: '0 20px 0 20px',
+    "@media (max-width: 500px)": {
+      padding: "0 10px 0 10px"
+    }
   },
   linksContainer: {
     display: "flex",

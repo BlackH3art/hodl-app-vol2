@@ -10,6 +10,9 @@ import Application from './components/Application/Application';
 import Footer from './components/Footer/Footer';
 import DeleteUser from './components/DeleteUser/DeleteUser';
 import Policy from './components/Policy/Policy';
+import NotFound from './components/NotFound/NotFound';
+
+import './app.styles.css';
 
 const App = () => {
 
@@ -26,6 +29,7 @@ const App = () => {
             <Route path="/application" component={Application} />
             <Route path="/user/delete-acount" component={DeleteUser} />
             <Route path="/polityka-prywatnosci" component={Policy} />
+            <Route component={NotFound} />
           </Switch>
           
           <Footer />
