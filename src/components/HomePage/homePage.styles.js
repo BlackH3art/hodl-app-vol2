@@ -18,6 +18,17 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center"
   },
+  marketingContainerSmall: {
+    textAlign: "center",
+  },
+  actionHeadingSmall: {
+    fontSize: "1.5rem",
+    fontWeight: "600" ,
+    padding: "20px 0"
+  },
+  secondaryText: {
+    padding: "0 20px"
+  },
   actionButton: {
     textDecoration: "none",
     display: "block",
@@ -30,7 +41,10 @@ const useStyles = makeStyles((theme) => ({
     margin: "30px 10px",
     borderRadius: "20px",
     color: "white",
-    width: "200px"
+    width: "200px",
+    "@media (max-width: 500px)": {
+      margin: "0 0 10px"
+    }
   },
   actionHeading: {
     fontSize: "4rem",
@@ -45,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
     height: "600px",
     "@media (max-width: 1280px)": {
       height: "300px"
+    },
+    "@media (max-width: 500px)": {
+      padding: "0 0",
+      height: "250px"
     }
   },
   waveRelativeContainer: {

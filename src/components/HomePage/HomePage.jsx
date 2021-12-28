@@ -7,6 +7,9 @@ import laptop from '../../images/laptop.png';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import useWindowSize from '../../helpers/useWindowSize';
+import MarketingLarge from './MarketingLarge';
+import MarketingSmall from './MarketingSmall';
 
 const HomePage = () => {
 
@@ -27,6 +30,7 @@ const HomePage = () => {
     "https://s2.coinmarketcap.com/static/img/coins/64x64/2010.png",
   ];
   const [user, setUser] = useState(null);
+  const [width, height] = useWindowSize();
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('profile')));
@@ -39,24 +43,9 @@ const HomePage = () => {
     <>
       <div className={classes.container}>
         <div className={classes.main}>
-          <Grid container spacing={2} justify="center" alignItems="center" >
+          
+          {width < 500 ? <MarketingSmall user={user} laptop={laptop} /> : <MarketingLarge user={user} laptop={laptop} />}
 
-            <Grid item className={classes.marketingContainer}>
-              <div>
-                <Typography className={classes.actionHeading} variant="h2">Śledź swoje portfolio</Typography>
-                <Typography>Łatwo zarządzają swoim kapitałem i pozycją na rynku kryptowalut</Typography>
-              </div>
-
-              <Link to={user ? '/application/open-positions' : '/auth'}>
-                <Button className={classes.actionButton} variant="outlined" color="primary">App</Button>
-              </Link>
-            </Grid>
-
-            <Grid item>
-              <img className={classes.img} src={laptop} alt="" />
-            </Grid>
-
-          </Grid>
         </div>
 
         <div className={classes.waveRelativeContainer}>
