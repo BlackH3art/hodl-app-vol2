@@ -15,7 +15,12 @@ import useButtonStyles from '../AddCoinForm/addCoinForm.styles';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+
 import { AppContext } from '../../Context/AppContext';
+
+import useWindowSize from '../../helpers/useWindowSize';
 
 const MainNav = () => {
 
@@ -26,7 +31,8 @@ const MainNav = () => {
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const [appState, setAppState] = useContext(AppContext);
-
+  const [width, height] = useWindowSize();
+  console.log(width);
 
   useEffect(() => {
     const token = user?.token
@@ -73,9 +79,12 @@ const MainNav = () => {
                   <PersonIcon />
                 </Avatar>
 
-                <Typography>
-                  {user.result?.data.email}
-                </Typography>
+
+                {width > 500 && (
+                  <Typography>
+                    {user.result?.data.email}
+                  </Typography>
+                )}
 
                 <Button className={classes.settingsButton} onClick={() => setAppState((prevState) => ({ ...prevState, openSettings: !prevState.openSettings}))}>
                   <SettingsIcon />
@@ -85,7 +94,13 @@ const MainNav = () => {
                   <SettingsMenu />
                 )}
                 
-                <Button variant="outlined" className={`${buttonClasses.secondaryButton} ${classes.signOutButton}`} size="small" onClick={logout} > Sign Out </Button>
+                {width > 500 ? (
+                  <Button variant="outlined" className={`${buttonClasses.secondaryButton} ${classes.signOutButton}`} size="small" onClick={logout} > Sign Out </Button>
+                ) : (
+                  <Button className={classes.signOutIcon} onClick={logout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} color='white' size='lg'/>
+                  </Button>
+                )}
               </div>
             ) : (
               <Button component={Link} to="/auth" variant="contained" className={`${buttonClasses.primaryButton} ${classes.signInButton}`} size="small" type="submit"> Sign In </Button>
