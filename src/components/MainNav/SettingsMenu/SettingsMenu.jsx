@@ -13,7 +13,7 @@ import { AppContext } from '../../../Context/AppContext';
 const SettingsMenu = () => {
 
   const classes = useStyles();
-  const [appState, setAppState] = useContext(AppContext);
+  const {appState, setAppState} = useContext(AppContext);
 
   const handleOpenInvestedForm = () => {
     setAppState({

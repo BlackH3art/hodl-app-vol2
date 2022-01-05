@@ -30,9 +30,8 @@ const MainNav = () => {
   const history = useHistory();
   const location = useLocation();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  const [appState, setAppState] = useContext(AppContext);
-  const [width, height] = useWindowSize();
-  console.log(width);
+  const {appState, setAppState} = useContext(AppContext);
+  const [width] = useWindowSize();
 
   useEffect(() => {
     const token = user?.token

@@ -56,5 +56,5 @@ export default App;
 // 9. input reaguje na błąd, ale najpierw transakcja jest wysłana --------- rozwiązane
 // 10. przerobić store errorów na obiekt --------- rozwiązane
 // 11. zrobić quantity i price na wymagane pola i wyświetlać błędy jak są puste --------- rozwiązane
-// 12. balanceInfo setState kumuluje się cały czas przy rerenderze komponentu bez usuwania poprzedniej wartości
+// 12. balanceInfo setState kumuluje się cały czas przy rerenderze komponentu bez usuwania poprzedniej wartości ----------- rozwiązane 
 // 13. czyścić reduxowy store po wylogowaniu, usunięciu użytkownika

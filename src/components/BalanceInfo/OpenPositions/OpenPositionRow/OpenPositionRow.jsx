@@ -48,6 +48,7 @@ const OpenPositionRow = ({ setCurrentId, index, quantity, price, entryPrice, dat
   let percentGainLoss = (((price - entryPrice) / entryPrice) * 100).toFixed(2);
 
   useEffect(() => {
+    setBalanceOfCoins([]);
     if(currentDolarBalance) {
       setBalanceOfCoins((prevState) => {
         return [...prevState, currentDolarBalance];

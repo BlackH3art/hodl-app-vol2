@@ -5,15 +5,19 @@ import AddCoinForm from '../AddCoinForm/AddCoinForm';
 import InvestedForm from '../InvestedForm/InvestedForm';
 
 import useStyles from './app.styles';
+import useWindowSize from '../../helpers/useWindowSize';
 
 import { AppContext } from '../../Context/AppContext';
+import BalanceInfoMobile from '../BalanceInfoMobile/BalanceInfoMobile';
 
 
 const Application = () => {
 
   const [currentId, setCurrentId] = useState(null);
-  const [appState] = useContext(AppContext);
+  const { appState } = useContext(AppContext);
   const classes = useStyles();
+  const [width] = useWindowSize();
+  console.log(width);
 
 
   return ( 
@@ -21,7 +25,12 @@ const Application = () => {
       <div className={classes.wholeAppContainer}>
         
         {appState.openInvestedForm ? <InvestedForm /> : <AddCoinForm currentId={currentId} setCurrentId={setCurrentId} />}
-        <BalanceInfo setCurrentId={setCurrentId} />
+        
+        
+        {width > 500 ? 
+          <BalanceInfo setCurrentId={setCurrentId} /> : <BalanceInfoMobile setCurrentId={setCurrentId} />
+        }
+        
 
       </div>
     </>

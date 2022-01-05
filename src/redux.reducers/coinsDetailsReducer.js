@@ -5,7 +5,14 @@ export default function coinDetailsReducer(state = [], action) {
 
     case FETCH_COIN_DATA:
 
-      return [...state, action.payload];
+      let exist = state.find(coin => coin._id === action.payload._id);
+
+      if(exist) {
+        return state;
+      } else {
+        return [...state, action.payload];
+      }
+
 
 
     case FETCH_COIN_PRICES:

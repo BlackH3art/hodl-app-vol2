@@ -26,7 +26,7 @@ const BalanceInfo = ({ setCurrentId }) => {
   const [showOpenPositions, setShowOpenPositions] = useState(false);
   const [balanceOfCoins, setBalanceOfCoins] = useState([]);
   const [balance, setBalance] = useState(0);
-  const user = useSelector(state => state.authReducer.data)
+  const user = useSelector(state => state.authReducer.data);
 
   useEffect(() => {
     //fix this
