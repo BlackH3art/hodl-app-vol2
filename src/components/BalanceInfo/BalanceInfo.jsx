@@ -2,18 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Button } from '@material-ui/core';
 import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
+import HistoryOutlinedIcon from '@material-ui/icons/HistoryOutlined';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft, faWallet, faRectangleList } from '@fortawesome/free-solid-svg-icons'
+
 import { getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';
 
 import useStyles from './balanceInfo.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
+import useWindowSize from '../../helpers/useWindowSize';
 
 import CoinList from './CoinList/CoinList';
 import InfoSquare from './InfoSquare/InfoSquare';
 import OpenPositions from './OpenPositions/OpenPositions';
 import HistoryTransaction from './HistoryTransaction/HistoryTransaction';
-import { InfoSquaresWrapper } from '../styledComponents/styledComponents';
+import { InfoSquaresWrapper, InfoRowWrapper } from '../styledComponents/styledComponents';
+import InfoRow from './MobileView/InfoRow/InfoRow';
+
 
 
 
@@ -27,6 +34,7 @@ const BalanceInfo = ({ setCurrentId }) => {
   const [balanceOfCoins, setBalanceOfCoins] = useState([]);
   const [balance, setBalance] = useState(0);
   const user = useSelector(state => state.authReducer.data);
+  const [width] = useWindowSize();
 
   useEffect(() => {
     //fix this
@@ -71,6 +79,10 @@ const BalanceInfo = ({ setCurrentId }) => {
     };
   };
 
+  const baseCapitalToUSD = usdFormatter.format(user?.result.invested);
+  const gainBalanceToUSD = usdFormatter.format(gainBalance);
+  const currentBalanceToUSD = usdFormatter.format(currentBalance);
+
   return ( 
     <>
       <Container component="div" className={classes.infoContainer}>
@@ -78,12 +90,21 @@ const BalanceInfo = ({ setCurrentId }) => {
           Balance info
         </Typography>
 
-        <InfoSquaresWrapper>
-          <InfoSquare title="Base capital:" info={`${usdFormatter.format(user?.result.invested)}`} />
-          <InfoSquare title="Gain / loss balance:" info={`${usdFormatter.format(gainBalance)}`} />
-          <InfoSquare title="Current balance:" info={`${usdFormatter.format(currentBalance)}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
-          {/* <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} /> */}
-        </InfoSquaresWrapper>
+        {width > 500 ? 
+          (<InfoSquaresWrapper>
+            <InfoSquare title="Base capital:" info={`${baseCapitalToUSD}`} />
+            <InfoSquare title="Gain / loss balance:" info={`${gainBalanceToUSD}`} />
+            <InfoSquare title="Current balance:" info={`${currentBalanceToUSD}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
+            {/* <InfoSquare title="24h change:" info={`${usdFormatter.format(dayChangeBalance)}`} percent={`${setProfitLossSign(dayChangePercent, true)}`} /> */}
+          </InfoSquaresWrapper>
+          ) : (
+            <InfoRowWrapper>
+              <InfoRow title="Current Balance" info={`${currentBalanceToUSD}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
+              <InfoRow title="Gain / Loss" info={`${gainBalanceToUSD}`} />
+              <InfoRow title="Base Capital" info={`${baseCapitalToUSD}`} />
+            </InfoRowWrapper>
+          )
+        }
 
         <Typography variant="h5" className={classes.title}>
           {location.pathname === "/application/history" ? "History" : ""}
@@ -95,20 +116,26 @@ const BalanceInfo = ({ setCurrentId }) => {
             {showOpenPositions ? (
               <Link to='/application/open-positions'>
                 <Button className={classes.routeButton} onClick={() => setShowOpenPositions(false)}>
-                  [ Open positions ]
+                  {width > 500 ? "[ Open positions ]" : (<FontAwesomeIcon size="lg" icon={faRectangleList} />)}
+                  
                 </Button>
               </Link>
             ) : (
               <Link to='/application/portfolio-balance'>
                 <Button className={classes.routeButton} onClick={() => setShowOpenPositions(true)}>
-                  [ Portfolio ]
+                  {width > 500 ? "[ Portfolio ]" : (<FontAwesomeIcon size="lg" icon={faWallet} />)}
+
                 </Button>
               </Link>
             )}      
 
             <Link to='/application/history'>
               <Button className={`${classes.routeButton} ${classes.historyButton}`} onClick={goBack} >
-                {location.pathname === "/application/history" || location.pathname.startsWith("/application/transaction-history") ? "Go back" : "History"}
+                {width > 500 ? (
+                  location.pathname === "/application/history" || location.pathname.startsWith("/application/transaction-history") ? "Go back" : "History"
+                ) : (
+                  location.pathname === "/application/history" || location.pathname.startsWith("/application/transaction-history") ? (<FontAwesomeIcon size="lg" icon={faArrowLeft} />) : (<HistoryOutlinedIcon />)
+                )}
               </Button>
             </Link>
           </div>
@@ -119,22 +146,22 @@ const BalanceInfo = ({ setCurrentId }) => {
         
         <Switch>
           <Route path="/application/open-positions" render={() => (
-            user ? <OpenPositions setCurrentId={setCurrentId} setBalanceOfCoins={setBalanceOfCoins}/> : <Redirect to='/auth'/>
+            user ? <OpenPositions width={width} setCurrentId={setCurrentId} setBalanceOfCoins={setBalanceOfCoins}/> : <Redirect to='/auth'/>
           )}>
           </Route>
 
           <Route path="/application/portfolio-balance" render={() => (
-            user ? <CoinList /> : <Redirect to='/auth'/>
+            user ? <CoinList width={width} /> : <Redirect to='/auth'/>
           )}>
           </Route>
 
           <Route path="/application/history" render={() => (
-            user ? <HistoryTransaction /> : <Redirect to='/auth'/>
+            user ? <HistoryTransaction width={width} /> : <Redirect to='/auth'/>
           )}>
           </Route>
 
           <Route path="/application/transaction-history/:ticker" render={() => (
-            user ? <HistoryTransaction /> : <Redirect to='/auth'/>
+            user ? <HistoryTransaction width={width} /> : <Redirect to='/auth'/>
           )}>
           </Route>
 
