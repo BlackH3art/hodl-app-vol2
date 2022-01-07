@@ -27,6 +27,5 @@ export const DeleteButtonWrapper = styled.div`
 export const InfoRowWrapper = styled.div`
   display: flex;
   width: 100%;
-  background-color: yellowgreen;
   flex-direction: column;
 `;

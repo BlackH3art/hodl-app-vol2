@@ -1,10 +1,8 @@
 import useStyles from './homePage.styles';
-import { Button, Grid, Typography } from '@material-ui/core';
 
 import CryptoBubble from './CryptoBubble';
 
 import laptop from '../../images/laptop.png';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import useWindowSize from '../../helpers/useWindowSize';
@@ -28,9 +26,11 @@ const HomePage = () => {
     "https://s2.coinmarketcap.com/static/img/coins/64x64/7083.png",
     "https://s2.coinmarketcap.com/static/img/coins/64x64/1720.png",
     "https://s2.coinmarketcap.com/static/img/coins/64x64/2010.png",
+    "https://s2.coinmarketcap.com/static/img/coins/64x64/3794.png",
+    "https://s2.coinmarketcap.com/static/img/coins/64x64/5994.png"
   ];
   const [user, setUser] = useState(null);
-  const [width, height] = useWindowSize();
+  const [width] = useWindowSize();
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem('profile')));

@@ -23,15 +23,47 @@ const useStyles = makeStyles(() => ({
   },
   routeButton: {
     marginLeft: "30px",
-    padding: "0 15px"
+    padding: "0 15px",
+    "@media (max-width: 500px)": {
+      margin: "0 0",
+      padding: "0 0",
+      minWidth: "32px"
+    }
+
+  },
+  titleButtonsContainer: {
+    display: "flex",
+    "@media (max-width: 500px)": {
+      justifyContent: "space-between",
+    }
   },
   componentsNavigations: {
     display: "flex",
     justifyContent: "space-between",
-    flexGrow: 1
+    flexGrow: 1,
+    backgroundColor: "none",
+    "@media (max-width: 500px)": {
+      flexGrow: 0,
+      justifyContent: "flex-end",
+    }
   }, 
+  componentLink: {
+    display: "flex",
+    justifyContent: "center",
+    paddingTop: "15px"
+
+  },
   historyButton: {
-    marginRight: "30px"
+    marginRight: "30px",
+    "@media (max-width: 500px)": {
+      marginRight: "0"
+    }
+  },
+  separator: {
+    height: "1px",
+    width: "100%", 
+    backgroundColor: "white",
+    backgroundImage: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(77,126,117,1) 11%, rgba(77,126,117,1) 89%, rgba(255,255,255,1) 100%)"
   }
 }));
 

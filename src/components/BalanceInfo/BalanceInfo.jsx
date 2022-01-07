@@ -99,29 +99,34 @@ const BalanceInfo = ({ setCurrentId }) => {
           </InfoSquaresWrapper>
           ) : (
             <InfoRowWrapper>
-              <InfoRow title="Current Balance" info={`${currentBalanceToUSD}`} percent={`${setProfitLossSign(gainPercent, true)}`} />
+              <InfoRow title="Current Balance" info={`${currentBalanceToUSD}`} percent={`${setProfitLossSign(gainPercent, true)}`} primeInfo={true} />
+              <hr />
               <InfoRow title="Gain / Loss" info={`${gainBalanceToUSD}`} />
+              <hr />
               <InfoRow title="Base Capital" info={`${baseCapitalToUSD}`} />
+              <hr />
             </InfoRowWrapper>
           )
         }
 
-        <Typography variant="h5" className={classes.title}>
-          {location.pathname === "/application/history" ? "History" : ""}
-          {location.pathname === "/application/open-positions" ? "Open positions" : ""}
-          {location.pathname === "/application/portfolio-balance" ? "Portfolio" : ""}
-          {location.pathname.startsWith("/application/transaction-history")  ? "Coin history" : ""}
+        <div className={classes.titleButtonsContainer}>
+          <Typography variant="h5" className={classes.title}>
+            {location.pathname === "/application/history" ? "History" : ""}
+            {location.pathname === "/application/open-positions" ? "Open positions" : ""}
+            {location.pathname === "/application/portfolio-balance" ? "Portfolio" : ""}
+            {location.pathname.startsWith("/application/transaction-history")  ? "Coin history" : ""}
+          </Typography>
 
           <div className={classes.componentsNavigations}>
             {showOpenPositions ? (
-              <Link to='/application/open-positions'>
+              <Link className={classes.componentLink} to='/application/open-positions'>
                 <Button className={classes.routeButton} onClick={() => setShowOpenPositions(false)}>
                   {width > 500 ? "[ Open positions ]" : (<FontAwesomeIcon size="lg" icon={faRectangleList} />)}
                   
                 </Button>
               </Link>
             ) : (
-              <Link to='/application/portfolio-balance'>
+              <Link className={classes.componentLink} to='/application/portfolio-balance'>
                 <Button className={classes.routeButton} onClick={() => setShowOpenPositions(true)}>
                   {width > 500 ? "[ Portfolio ]" : (<FontAwesomeIcon size="lg" icon={faWallet} />)}
 
@@ -129,7 +134,7 @@ const BalanceInfo = ({ setCurrentId }) => {
               </Link>
             )}      
 
-            <Link to='/application/history'>
+            <Link className={classes.componentLink} to='/application/history'>
               <Button className={`${classes.routeButton} ${classes.historyButton}`} onClick={goBack} >
                 {width > 500 ? (
                   location.pathname === "/application/history" || location.pathname.startsWith("/application/transaction-history") ? "Go back" : "History"
@@ -139,10 +144,9 @@ const BalanceInfo = ({ setCurrentId }) => {
               </Button>
             </Link>
           </div>
+        </div>
 
-        </Typography>
 
-          
         
         <Switch>
           <Route path="/application/open-positions" render={() => (

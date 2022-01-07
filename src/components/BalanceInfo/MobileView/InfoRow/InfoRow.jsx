@@ -1,9 +1,11 @@
 import { Typography } from "@material-ui/core";
 import useStyles from "./infoRow.styles";
 
-const InfoRow = ({ title, info, percent }) => {
+const InfoRow = ({ title, info, percent = '', primeInfo }) => {
 
   const classes = useStyles();
+
+  const gainOrLossColor = percent.startsWith('-') ? classes.loss : classes.gain;
 
   return (
     <>
@@ -13,15 +15,17 @@ const InfoRow = ({ title, info, percent }) => {
           {title}
         </Typography>
 
-        <Typography>
-          {info}
+        <div>
+          <Typography className={`${primeInfo  ? classes.primeInfo : ''}`}>
+            {info}
+          </Typography>
 
           {percent && (
-            <Typography>
+            <Typography className={`${gainOrLossColor} ${classes.percent}`}>
               {percent}
             </Typography>
           )}
-        </Typography>
+        </div>
 
       </div>
     </>
