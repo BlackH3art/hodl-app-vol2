@@ -10,6 +10,7 @@ import LoadingIndicator from '../../LoadingIndicator/LoadingIndicator';
 // hooks
 import useStyles from './openPositions.styles';
 import { useSelector } from 'react-redux';
+import OpenPositionRowMobile from './OpenPositionRowMobile/OpenPositionRowMobile';
 
 
 const OpenPositions = ({ setCurrentId, setBalanceOfCoins, width }) => {
@@ -80,7 +81,42 @@ const OpenPositions = ({ setCurrentId, setBalanceOfCoins, width }) => {
 
           ) : (
             <>
-              Other view
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.tableCellHead} width={5} align='left'><Typography className={classes.tableHead}> # </Typography></TableCell>
+                  <TableCell className={classes.tableCellHead} align='left'><Typography className={classes.tableHead}> Name </Typography></TableCell>
+                  <TableCell className={classes.tableCellHead} align='right'><Typography className={classes.tableHead}> Price </Typography></TableCell>
+                  {/* <TableCell className={classes.tableCellHead} align='right'><Typography className={classes.tableHead}> Change </Typography></TableCell> */}
+                  <TableCell className={classes.tableCellHeadlast} width={5} align='right'><Typography className={classes.tableHead}></Typography></TableCell>
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+              {transactions ? transactions.map((transaction, index) => {
+
+                let coinPrice = coinsPriceData.find((coin) => coin.symbol === transaction.ticker.toUpperCase());
+
+                return (
+                  <OpenPositionRowMobile
+                    key={index}
+                    index={index}
+                    setCurrentId={setCurrentId}
+                    quantity={transaction.quantity}
+                    price={coinPrice?.price}
+                    entryPrice={transaction.entryPrice}
+                    date={transaction.openDate}
+                    ticker={transaction.ticker.toUpperCase()}
+                    id={transaction._id}
+                    setBalanceOfCoins={setBalanceOfCoins}
+                  />
+                )}) : (
+                <TableRow>
+                  <TableCell align="center" colSpan={8}>
+                    <LoadingIndicator />
+                  </TableCell>
+                </TableRow>
+                )}
+              </TableBody>
             </>
           )}
 
