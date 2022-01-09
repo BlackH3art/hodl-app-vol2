@@ -4,7 +4,7 @@ import { Switch, Route, Link, Redirect } from 'react-router-dom';
 
 import HistoryOutlinedIcon from '@material-ui/icons/HistoryOutlined';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faWallet, faRectangleList } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faWallet, faRectangleList } from '@fortawesome/free-solid-svg-icons';
 
 import { getPortfolioAverage, fetchPricesCoinData } from '../../redux.actions/coinActions';
 import { setProfitLossSign, usdFormatter } from '../../helpers/helpers';

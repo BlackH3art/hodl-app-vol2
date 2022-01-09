@@ -24,14 +24,15 @@ const useStyles = makeStyles(() => ({
   },
   mainText: {
     fontWeight: "600",
-    fontSize: ".8rem"
+    fontSize: ".9rem"
   },
   secondaryTxt: {
     fontSize: "0.875rem",
     color: "#7A7774",
     paddingRight: "10px",
     "@media (max-width: 500px)": {
-      fontSize: ".7rem"
+      fontSize: ".8rem",
+      padding: "0 0"
     }
   },
   cryptoAmount: {
@@ -101,6 +102,16 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     flexGrow: 1,
     paddingRight: ".6rem"
+  },
+  singleRowInfo: {
+    fontWeight: "600",
+
+  }, 
+  unwindHeader: {
+    paddingTop: "0.8rem",
+    fontWeight: "600",
+    fontSize: "0.8rem",
+    fontStyle: "uppercase"
   }
 
 

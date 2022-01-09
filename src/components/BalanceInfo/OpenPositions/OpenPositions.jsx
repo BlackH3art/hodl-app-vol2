@@ -85,7 +85,7 @@ const OpenPositions = ({ setCurrentId, setBalanceOfCoins, width }) => {
                 <TableRow>
                   <TableCell className={classes.tableCellHead} width={5} align='left'><Typography className={classes.tableHead}> # </Typography></TableCell>
                   <TableCell className={classes.tableCellHead} align='left'><Typography className={classes.tableHead}> Name </Typography></TableCell>
-                  <TableCell className={classes.tableCellHead} align='right'><Typography className={classes.tableHead}> Price </Typography></TableCell>
+                  <TableCell className={classes.tableCellHead} align='center'><Typography className={classes.tableHead}> Price </Typography></TableCell>
                   {/* <TableCell className={classes.tableCellHead} align='right'><Typography className={classes.tableHead}> Change </Typography></TableCell> */}
                   <TableCell className={classes.tableCellHeadlast} width={5} align='right'><Typography className={classes.tableHead}></Typography></TableCell>
                 </TableRow>
